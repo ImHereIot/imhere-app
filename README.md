@@ -4,14 +4,14 @@ I'm Here é um sistema gerenciador de chamadas inteligente com a integração de
 
 ## Dados
 ```python
-* user
- * userId (matrícula UniSociesc);
+**user**
+ **userId** (matrícula UniSociesc);
    * PK, U
- * name (nome completo do usuário);
- * shortName (apelido) ;
- * role (ocupação - professor, aluno, coordenador…);
- * email (e-mail do usuário);
- * tagId (Id do RFID ou NFC do usuário);
+ **name** (nome completo do usuário);
+ **shortName** (apelido) ;
+ **role** (ocupação - professor, aluno, coordenador…);
+ **email** (e-mail do usuário);
+ **tagId** (Id do RFID ou NFC do usuário);
    * PK, U
 ```
 

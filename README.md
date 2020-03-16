@@ -4,15 +4,15 @@ I'm Here é um sistema gerenciador de chamadas inteligente com a integração de
 
 ## Dados
 ```python
-user
-  userId (matrícula UniSociesc);
-    PK, U
-  name (nome completo do usuário);
-  shortName (apelido) ;
-  role (ocupação - professor, aluno, coordenador…);
-  email (e-mail do usuário);
-  tagId (Id do RFID ou NFC do usuário);
-    PK, U
+* user
+ * userId (matrícula UniSociesc);
+   * PK, U
+ * name (nome completo do usuário);
+ * shortName (apelido) ;
+ * role (ocupação - professor, aluno, coordenador…);
+ * email (e-mail do usuário);
+ * tagId (Id do RFID ou NFC do usuário);
+   * PK, U
 ```
 
 ## Ferramentas
@@ -39,7 +39,7 @@ A arquitetura do sistema I'm Here está disponível em:
 https://drive.google.com/open?id=1YWCBff8xL6EzXzP9Holz-XvoHJOwvfVh
 ```
 
-## Alunos
+## Desenvolvido por:
 ```
 Vitor Hugo Schramm
 Leonardo Mayer

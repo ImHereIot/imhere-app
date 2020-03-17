@@ -1,6 +1,6 @@
 # I'm Here
 
-I'm Here é um sistema gerenciador de chamadas inteligente com a integração de dispositivos NFC
+I'm Here é um sistema controlador de frequências inteligente com a integração de dispositivos NFC
 
 ## Dados
 ```python
@@ -44,6 +44,8 @@ https://drive.google.com/open?id=1YWCBff8xL6EzXzP9Holz-XvoHJOwvfVh
 Vitor Hugo Schramm
 Leonardo Mayer
 Enrico Stanchon
-Júlio Cesar Lopes
+Júlio Cesar Lopes                                               
 ```
+
+ ![Logo I'M Here](https://user-images.githubusercontent.com/50891583/76890058-6d1faf00-6865-11ea-8e99-d53444e6a352.PNG)
 

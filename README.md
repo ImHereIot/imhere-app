@@ -1,6 +1,6 @@
 # I'm Here
 
-I'm Here é um sistema controlador de frequências inteligente com a integração de dispositivos NFC
+I'm Here é um sistema controlador de frequências inteligente com a integração de dispositivos NFC.
 
 ## Dados
 ```python

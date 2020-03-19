@@ -4,6 +4,8 @@ const app = express();
 const session = require("express-session");
 
 
+//verificando qual banco será mais simples de implementar
+
 mongoose.connect(url, options);
 mongoose.set("useCreateIndex", true);
 
@@ -32,10 +34,8 @@ app.use(
   })
 );
 app.use(express.static("files"));
-app.use("/api/users/", usersRoute);
-app.use("/api/business/", businessRoute);
-app.use("/api/products/", productsRoute);
-app.use("/api/cart/", cartRoute);
+app.use("/api/register/");
+app.use("/api/class/");
 
 app.all("/", (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");

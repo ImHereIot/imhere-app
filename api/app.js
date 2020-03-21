@@ -1,48 +1,26 @@
-const express = require("express");
-const firebase = require("firebase")
+var express = require("express");
 const app = express();
-const session = require("express-session");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const signRoute = require('./model')
 
-
-//verificando qual banco será mais simples de implementar
-
-mongoose.connect(url, options);
-mongoose.set("useCreateIndex", true);
-
-mongoose.connection.on("error", err => {
-  console.log("Erro na conexão do banco de dados" + err);
+mongoose.connect("mongodb://localhost:3000", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+const aluno = mongoose.model("aluno", {
+  name: string,
+  aula: string,
+  matriculado: Boolean
 });
 
-mongoose.connection.on("disconnected", () => {
-  console.log("aplicação desconectada do bd");
+app.use('/api/check',signRoute);
+app.use('/api/class',classRoute);
+
+
+
+app.listen(3000, () => {
+  console.log("servidor up");
 });
-
-mongoose.connection.on("connected", () => {
-  console.log("aplicação conectada corretamente");
-});
-
-//body-parser
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
-app.use(
-  session({
-    secret: "aloha",
-    resave: true,
-    saveUninitialized: true
-    //cookie: { secure: true }
-  })
-);
-app.use(express.static("files"));
-app.use("/api/register/");
-app.use("/api/class/");
-
-app.all("/", (req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
-});
-
-app.listen(3000);
 
 module.exports = app;

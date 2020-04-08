@@ -38,7 +38,7 @@ https://drive.google.com/open?id=1CFs_ARgzwh1Cu_jZZLmV58OP0tAx50y8
 ```
 
 ## Wireframe
-<img src="/mobile/src/assets/wireframe.png">
+<img src="/mobile/assets/wireframe@1.png">
 
 ## Desenvolvido por:
 ```

@@ -22,15 +22,13 @@ user
   b. Módulo leitor RFID Pn532 V3.
 
 2 - Linguagens de Programação e Frameworks
-  a. Dart (Flutter);
-  b. JavaScript (NodeJS);
-  c. C++.
+  a. JavaScript (NodeJS, React Native;
+  b. C++.
 
 3 - Editores e demais ferramentas
   a. Visual Studio Code;
-  b. Sublime Text;
-  c. Android Studio;
-  d. Arduino IDE.
+  b. Arduino IDE;
+  c. Expo.
 ```
 
 ## Arquitetura

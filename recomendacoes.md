@@ -13,7 +13,8 @@ As branches precisam seguir o padrão a seguir
 
 ## Pull Requests
 
-Pull requests são recomendados caso haja conflito de arquivos ou necessidade de ajuda de outro desenvolvedor, como por exemplo: ajustei o arquivo de recomendação do repositório, preciso que outra pessoa valide para vigorar o arquivo
+Pull requests são recomendados caso haja conflito de arquivos ou necessidade de ajuda de outro desenvolvedor, como por exemplo: ajustei o arquivo de recomendação do repositório, preciso que outra pessoa valide para vigorar o arquivo.
+
 ## Code Review e dúvidas
 
 Para um code Review, é necessário abrir Pull Request(caso dê conflito) ou marque o desenvolvedor ou desenvolvedores  para o Code Review, o mesmo se aplica para tirar Dúvidas do código criado.

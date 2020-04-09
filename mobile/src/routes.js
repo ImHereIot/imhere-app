@@ -6,24 +6,24 @@ const AppStack = createStackNavigator();
 
 import Login from './pages/Login';
 
-import StudentLesson from './pages/StudentLesson';
-import TeacherLesson from './pages/TeacherLesson';
+import StudentHome from './pages/StudentHome';
+import TeacherHome from './pages/TeacherHome';
 
 import StudentDetail from './pages/StudentDetail';
-import TeacherDetail from './pages/TeacherDetail';
+import TeacherEditDetail from './pages/TeacherEditDetail';
 
-import NewLesson from './pages/NewLesson';
+import NewClass from './pages/NewClass';
 
 export default function Routes() {
   return (
     <NavigationContainer>
       <AppStack.Navigator screenOptions={{ headerShown: false }}>
         <AppStack.Screen name="Login" component={Login}/>
-        <AppStack.Screen name="StudentLesson" component={StudentLesson}/>
+        <AppStack.Screen name="StudentHome" component={StudentHome}/>
         <AppStack.Screen name="StudentDetail" component={StudentDetail}/>
-        <AppStack.Screen name="TeacherLesson" component={TeacherLesson}/>
-        <AppStack.Screen name="TeacherDetail" component={TeacherDetail}/>
-        <AppStack.Screen name="NewLesson" component={NewLesson}/>
+        <AppStack.Screen name="TeacherHome" component={TeacherHome}/>
+        <AppStack.Screen name="TeacherEditDetail" component={TeacherEditDetail}/>
+        <AppStack.Screen name="NewClass" component={NewClass}/>
       </AppStack.Navigator>
     </NavigationContainer>
   );

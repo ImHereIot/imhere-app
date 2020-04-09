@@ -9,8 +9,11 @@ import styles from './styles';
 import logoImg from '../../assets/logo.png';
 
 export default function Login() {
-  clicou = () => {
-    Alert.alert("Teste de Login", "Login efetuado!");
+  const navigation = useNavigation();
+
+  Logon = () => {
+    navigation.navigate('TeacherHome');
+    //navigation.navigate('StudentHome');
   }
 
   return (
@@ -26,7 +29,7 @@ export default function Login() {
         <TextInput style={styles.input} placeholder="Matrícula" />
         <TextInput style={styles.input} secureTextEntry={true} placeholder="Senha" />
 
-        <TouchableOpacity style={styles.button} onPress={() => { this.clicou() }}>
+        <TouchableOpacity style={styles.button} onPress={() => { this.Logon() }}>
           <Text style={styles.textButton}>Login</Text>
         </TouchableOpacity>
       </View>

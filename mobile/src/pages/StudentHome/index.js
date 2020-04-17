@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Feather } from '@expo/vector-icons';
-import { View, FlatList, Image, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, FlatList, Image, Text, TouchableOpacity, ScrollView, StatusBar } from 'react-native';
 import { Divider } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native';
 
 import api from '../../services/api'
 
-import logoImg from '../../assets/logo1.png'
+import logoImg from '../../../assets/logo2.png'
 import styles from './styles'
 
-export default function Login() {
+export default function StudentHome() {
 	const navigation = useNavigation();
 
 	navigateToDetail = () => {
@@ -18,6 +18,7 @@ export default function Login() {
 
 	return (
 		<View style={styles.container}>
+			<StatusBar barStyle="dark-content"/>
 			<View style={styles.header}>
 				<Image style={styles.image} source={logoImg}></Image>
 				<Text style={styles.headerText}>

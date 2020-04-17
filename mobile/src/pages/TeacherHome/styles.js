@@ -114,7 +114,6 @@ export default StyleSheet.create({
     borderRadius: 8,
     height: 50,
     width: '48%',
-    justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',

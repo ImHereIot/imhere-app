@@ -9,13 +9,27 @@ export default StyleSheet.create({
     backgroundColor: '#4682B4'
   },
 
+  logoRadius:{
+    width: 170,
+    height: 170,
+    borderRadius: 100,
+    backgroundColor: '#fff',
+    marginBottom: -160,
+    marginTop: -10,
+  },
+
   logo: {
     width: 150,
     height: 150,
-    borderRadius: 100,
     marginBottom: 30,
-    marginTop: -50
   },
+
+  // logo: {
+  //   width: 150,
+  //   height: 150,
+  //   marginBottom: 30,
+  //   marginTop: -50,
+  // },
 
   input: {
     marginTop: 15,

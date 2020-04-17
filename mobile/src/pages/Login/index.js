@@ -6,14 +6,14 @@ import { useNavigation } from '@react-navigation/native';
 import api from '../../services/api';
 
 import styles from './styles';
-import logoImg from '../../assets/logo.png';
+import logoImg from '../../../assets/logo2.png'
 
 export default function Login() {
   const navigation = useNavigation();
 
   Logon = () => {
-    navigation.navigate('TeacherHome');
-    //navigation.navigate('StudentHome');
+    // navigation.navigate('TeacherHome');
+    navigation.navigate('StudentHome');
   }
 
   return (
@@ -23,6 +23,7 @@ export default function Login() {
         ios: 'padding',
         android: null,
       })}>
+      <View style={styles.logoRadius}></View>
       <Image source={logoImg} style={styles.logo}></Image>
 
       <View style={styles.inputContainer}>

@@ -22,6 +22,10 @@ export default function StudentDetail() {
 		navigation.goBack();
 	}
 
+	function navigateTo(route) {
+    navigation.navigate(route);
+  }
+
 	function sendMail() {
 		MailComposer.composeAsync({
 			subject: `Aula de Desenolvimento Mobile e IoT: `,
@@ -34,7 +38,9 @@ export default function StudentDetail() {
 		<View style={styles.container}>
 			<StatusBar barStyle="dark-content" />
 			<View style={styles.header}>
-				<Image style={styles.image} source={logoImg}></Image>
+				<TouchableOpacity onPress={() => navigateTo('NFC')}>
+					<Image style={styles.image} source={logoImg}></Image>
+				</TouchableOpacity>
 
 				<View style={styles.titleClass}>
 					<Text style={styles.classProperty}>DESENVOLVIMENTO MOBILE E IOT</Text>

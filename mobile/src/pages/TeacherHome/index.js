@@ -6,10 +6,10 @@ import { useNavigation } from '@react-navigation/native';
 
 import api from '../../services/api'
 
-import logoImg from '../../assets/logo1.png'
+import logoImg from '../../../assets/logo2.png'
 import styles from './styles'
 
-export default function TeacherEditDetail() {
+export default function TeacherHome() {
   const navigation = useNavigation();
 
   function navigateTo(route) {
@@ -18,9 +18,11 @@ export default function TeacherEditDetail() {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content"/>
+      <StatusBar barStyle="dark-content" />
       <View style={styles.header}>
-        <Image style={styles.image} source={logoImg}></Image>
+        <TouchableOpacity onPress={() => navigateTo('NFC')}>
+          <Image style={styles.image} source={logoImg}></Image>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.action} onPress={() => navigateTo('NewClass')}>
           <Feather name="plus" size={20} color="#fff" />
           <Text style={styles.actionText}>Aula</Text>
@@ -49,7 +51,7 @@ export default function TeacherEditDetail() {
 
           <TouchableOpacity
             style={styles.detailsButton}
-            onPress={() => navigateToDetail()}
+            onPress={() => navigateTo('TeacherEditDetail')}
           >
             <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
             <Feather name="arrow-right" size={16} color="#3498db" />

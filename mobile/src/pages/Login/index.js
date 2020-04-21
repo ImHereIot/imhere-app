@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import { Feather } from '@expo/vector-icons';
-import { Alert, View, Image, TextInput, TouchableOpacity, Text, KeyboardAvoidingView } from 'react-native';
+import React from 'react';
+import { View, Image, TextInput, TouchableOpacity, Text, KeyboardAvoidingView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import api from '../../services/api';

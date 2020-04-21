@@ -12,15 +12,17 @@ import styles from './styles'
 export default function StudentHome() {
 	const navigation = useNavigation();
 
-	navigateToDetail = () => {
-		navigation.navigate('StudentDetail');
-	}
+  function navigateTo(route) {
+    navigation.navigate(route);
+  }
 
 	return (
 		<View style={styles.container}>
-			<StatusBar barStyle="dark-content"/>
+			<StatusBar barStyle="dark-content" />
 			<View style={styles.header}>
-				<Image style={styles.image} source={logoImg}></Image>
+				<TouchableOpacity onPress={() => navigateTo('NFC')}>
+					<Image style={styles.image} source={logoImg}></Image>
+				</TouchableOpacity>
 				<Text style={styles.headerText}>
 					Você possui <Text style={styles.headerTextBold}> 2 aulas </Text>hoje.
 				</Text>
@@ -57,7 +59,7 @@ export default function StudentHome() {
 
 				<View style={styles.class}>
 					<View style={styles.classStatus}>
-						<Text style={styles.classStatusText, {fontSize: 12, color: 'red', fontWeight: 'bold'}}>FALTOU</Text>
+						<Text style={styles.classStatusText, { fontSize: 12, color: 'red', fontWeight: 'bold' }}>FALTOU</Text>
 						<Feather name="x" size={16} color="red" />
 					</View>
 
@@ -73,7 +75,7 @@ export default function StudentHome() {
 
 					<TouchableOpacity
 						style={styles.detailsButton}
-						onPress={() => navigateToDetail()}
+						onPress={() => navigateTo('StudentDetail')}
 					>
 						<Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
 						<Feather name="arrow-right" size={16} color="#3498db" />

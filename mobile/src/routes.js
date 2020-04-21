@@ -5,14 +5,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 const AppStack = createStackNavigator();
 
 import Login from './pages/Login';
-
 import StudentHome from './pages/StudentHome';
 import TeacherHome from './pages/TeacherHome';
-
 import StudentDetail from './pages/StudentDetail';
 import TeacherEditDetail from './pages/TeacherEditDetail';
-
 import NewClass from './pages/NewClass';
+import NFC from './pages/NFC';
 
 export default function Routes() {
   return (
@@ -24,6 +22,7 @@ export default function Routes() {
         <AppStack.Screen name="TeacherHome" component={TeacherHome}/>
         <AppStack.Screen name="TeacherEditDetail" component={TeacherEditDetail}/>
         <AppStack.Screen name="NewClass" component={NewClass}/>
+        <AppStack.Screen name="NFC" component={NFC}/>
       </AppStack.Navigator>
     </NavigationContainer>
   );

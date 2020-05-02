@@ -11,6 +11,7 @@ import StudentDetail from './pages/StudentDetail';
 import TeacherEditDetail from './pages/TeacherEditDetail';
 import NewClass from './pages/NewClass';
 import NFC from './pages/NFC';
+import CameraFrame from './pages/CameraFrame';
 
 export default function Routes() {
   return (
@@ -23,6 +24,7 @@ export default function Routes() {
         <AppStack.Screen name="TeacherEditDetail" component={TeacherEditDetail}/>
         <AppStack.Screen name="NewClass" component={NewClass}/>
         <AppStack.Screen name="NFC" component={NFC}/>
+        <AppStack.Screen name="CameraFrame" component={CameraFrame}/>
       </AppStack.Navigator>
     </NavigationContainer>
   );

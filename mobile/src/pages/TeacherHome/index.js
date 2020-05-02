@@ -11,9 +11,15 @@ import styles from './styles'
 
 export default function TeacherHome() {
   const navigation = useNavigation();
+  const catchedPhoto = [];
+
 
   function navigateTo(route) {
     navigation.navigate(route);
+  }
+
+  function navigateToNewClass() {
+    navigation.navigate('NewClass', catchedPhoto);
   }
 
   return (
@@ -23,7 +29,7 @@ export default function TeacherHome() {
         <TouchableOpacity onPress={() => navigateTo('NFC')}>
           <Image style={styles.image} source={logoImg}></Image>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.action} onPress={() => navigateTo('NewClass')}>
+        <TouchableOpacity style={styles.action} onPress={navigateToNewClass}>
           <Feather name="plus" size={20} color="#fff" />
           <Text style={styles.actionText}>Aula</Text>
         </TouchableOpacity>

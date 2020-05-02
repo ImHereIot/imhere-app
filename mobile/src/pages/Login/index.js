@@ -11,8 +11,8 @@ export default function Login() {
   const navigation = useNavigation();
 
   Logon = () => {
-    // navigation.navigate('TeacherHome');
-    navigation.navigate('StudentHome');
+    navigation.navigate('TeacherHome');
+    //navigation.navigate('StudentHome');
   }
 
   return (

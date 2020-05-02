@@ -2,7 +2,7 @@
 import React from 'react';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { View, Image, TouchableOpacity, Text, KeyboardAvoidingView, Linking, ScrollView, StatusBar, TextInput } from 'react-native';
+import { View, Image, TouchableOpacity, Text, KeyboardAvoidingView, Linking, ScrollView, StatusBar, TextInput, SafeAreaView } from 'react-native';
 import { Divider } from 'react-native-elements';
 import { Dropdown } from 'react-native-material-dropdown';
 
@@ -12,8 +12,11 @@ import logoImg from '../../../assets/logo2.png'
 import styles from './styles'
 
 export default function TeacherEditDetail() {
-  const navigation = useNavigation();
   const route = useRoute();
+  const navigation = useNavigation();
+  const catchedPhoto = route.params.catchedPhoto;
+  console.log({ uri: catchedPhoto });
+
 
   let classroom = [{
     value: 'B102',
@@ -45,6 +48,10 @@ export default function TeacherEditDetail() {
 
   function navigateToBack() {
     navigation.goBack();
+  }
+
+  function navigateToCamera() {
+    navigation.navigate('CameraFrame');
   }
 
   return (
@@ -88,6 +95,30 @@ export default function TeacherEditDetail() {
 
               <Text style={styles.classProperty}>DETALHES:</Text>
               <TextInput style={styles.classValue} placeholder="Detalhes" multiline={true}></TextInput>
+
+              <Text style={styles.classProperty}>MÍDIA:</Text>
+
+              {catchedPhoto &&
+                <View>
+                  <View style={styles.mediaButton}>
+                    <TouchableOpacity onPress={navigateToCamera}>
+                      <Image
+                        style={styles.mediaImage}
+                        source={{ uri: catchedPhoto }}
+                      ></Image>
+                    </TouchableOpacity>
+                  </View>
+                  <View><Feather style={styles.imageIcon} name="camera" size={20} color="#4682B4" /></View>
+                </View>
+              }
+
+              {!catchedPhoto &&
+                <TouchableOpacity style={styles.addMediaButton} onPress={navigateToCamera}>
+                  <Feather name="plus" size={20} color="#4682B4" />
+                  <Feather name="camera" size={20} color="#4682B4" />
+                </TouchableOpacity>
+              }
+
             </View>
           </View>
           <TouchableOpacity style={styles.createButton} onPress={navigateToBack}>

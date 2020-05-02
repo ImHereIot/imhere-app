@@ -16,7 +16,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 90,
-  }, 
+  },
 
   image: {
     width: 100,
@@ -24,14 +24,14 @@ export default StyleSheet.create({
     resizeMode: 'contain'
   },
 
-  titleClass:{
-    marginBottom:50,
+  titleClass: {
+    marginBottom: 50,
     width: '50%',
     height: 100,
-    justifyContent:'center'
+    justifyContent: 'center'
   },
 
-  divider:{
+  divider: {
     height: 1.5,
     marginBottom: 12,
   },
@@ -43,34 +43,62 @@ export default StyleSheet.create({
   },
 
   class: {
-		padding:24,
-		borderRadius:8,
-		backgroundColor: '#FFF',
+    padding: 24,
+    borderRadius: 8,
+    backgroundColor: '#FFF',
     marginBottom: 16,
     marginTop: 10,
-	},
+  },
 
-	classProperty: {
-		fontSize: 14,
-		color: '#41414d',
+  classProperty: {
+    fontSize: 14,
+    color: '#41414d',
     fontWeight: 'bold',
     marginTop: 22,
   },
-  
+
   classPropertyDropdown: {
-		fontSize: 14,
-		color: '#41414d',
+    fontSize: 14,
+    color: '#41414d',
     fontWeight: 'bold',
     marginTop: 24,
     marginBottom: -24
-	},
-
-	classValue: {
-		marginTop: 8,
-		fontSize:15,
-		color: '#737380'
   },
-  
+
+  classValue: {
+    marginTop: 8,
+    fontSize: 15,
+    color: '#737380'
+  },
+
+  mediaButton: {
+    marginTop: 10,
+    justifyContent: 'center',
+  },
+
+  addMediaButton: {
+    borderRadius:100,
+    width:100,
+    height:100,
+    backgroundColor: '#f2f2f2',
+    marginTop: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row', 
+  },
+
+  imageIcon: {
+    marginStart: 10,
+    paddingLeft: 30,
+    marginTop: -60
+  },
+
+  mediaImage: {
+    borderRadius: 100,
+    width: 100,
+    height: 100
+  },
+
   createButton: {
     height: 60,
     alignItems: 'center',

@@ -50,7 +50,7 @@ export default function StudentHome() {
 
 					<TouchableOpacity
 						style={styles.detailsButton}
-						onPress={() => navigateToDetail()}
+						onPress={() => navigateTo('StudentDetail')}
 					>
 						<Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
 						<Feather name="arrow-right" size={16} color="#3498db" />

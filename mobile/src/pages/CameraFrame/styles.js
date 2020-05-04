@@ -26,4 +26,17 @@ export default StyleSheet.create({
     marginHorizontal: 30,
   },
 
+  modalView: {
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    margin: 20
+  },
+
+  catchedImage: {
+    width: '100%', 
+    height: '75%', 
+    borderRadius: 20
+  }
+
 });

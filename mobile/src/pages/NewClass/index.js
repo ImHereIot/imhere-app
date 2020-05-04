@@ -14,7 +14,11 @@ import styles from './styles'
 export default function TeacherEditDetail() {
   const route = useRoute();
   const navigation = useNavigation();
+  
+  // URI interna armazenada da foto  
   const catchedPhoto = route.params.catchedPhoto;
+
+  // Lembrar de olhar terminal para visualizar a URI da imagem
   console.log({ uri: catchedPhoto });
 
 
@@ -98,12 +102,14 @@ export default function TeacherEditDetail() {
 
               <Text style={styles.classProperty}>MÍDIA:</Text>
 
+              {/* Quando tem foto (volta da câmera, com foto) */}
               {catchedPhoto &&
                 <View>
                   <View style={styles.mediaButton}>
                     <TouchableOpacity onPress={navigateToCamera}>
                       <Image
                         style={styles.mediaImage}
+                        // pega uri da variável catchedPhoto recebida por parâmetro
                         source={{ uri: catchedPhoto }}
                       ></Image>
                     </TouchableOpacity>
@@ -112,6 +118,7 @@ export default function TeacherEditDetail() {
                 </View>
               }
 
+              {/* Quanto não tem foto na variável */}
               {!catchedPhoto &&
                 <TouchableOpacity style={styles.addMediaButton} onPress={navigateToCamera}>
                   <Feather name="plus" size={20} color="#4682B4" />

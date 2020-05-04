@@ -8,12 +8,23 @@ import styles from './styles'
 
 export default function CameraFrame() {
   const navigation = useNavigation();
+
+  // armazena a referência da câmera do dispositivo
   const camRef = useRef(null);
+
+  //armazena o tipo da câmera (frontal ou trazeira)
   const [type, setType] = useState(Camera.Constants.Type.front);
+
+  // armazena se tem permissão de utilizar a câmera do dispositivo ou não
   const [hasPermission, setHasPermission] = useState(null);
+
+  // armazena o conteúdo da imagem capturada
   const [catchedPhoto, setCatchedPhoto] = useState(null);
+
+  // armazena se a modal está ou não aberta
   const [open, setOpen] = useState(false);
 
+  // método para validar permissão da câmera
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
@@ -33,19 +44,26 @@ export default function CameraFrame() {
     navigation.goBack();
   }
 
+  // Retorna para a tela "NewClass" enviando a foto capturada por parâmetro 
   function backToNewClass(catchedPhoto) {
     navigation.navigate('NewClass', {catchedPhoto: catchedPhoto});
   }
 
   async function takePicture() {
+    // referência da camera = camRef
     if (camRef) {
+      // grava dados do momento capturado na câmera
       const data = await camRef.current.takePictureAsync();
+
+      // guarda uri da camêra (imagem caputurada)
       setCatchedPhoto(data.uri);
+
+      //abre modal e seta variável open como true
       setOpen(true);
-      // console.log({ uri: catchedPhoto });
     }
   }
 
+  // Tela
   return (
     <SafeAreaView style={styles.container}>
       <Camera
@@ -66,6 +84,7 @@ export default function CameraFrame() {
 
         <TouchableOpacity
           onPress={() => {
+            // alterna tipo da câmera (frontal e trazeira)
             setType(
               type === Camera.Constants.Type.front
                 ? Camera.Constants.Type.back
@@ -77,16 +96,19 @@ export default function CameraFrame() {
 
       </View>
 
+
+      {/* Modal para usuário confirmar a foto ou não */}
       {catchedPhoto &&
         <Modal
           animationType="slide"
           transparent="false"
           visible={open}
         >
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', margin: 20 }}>
+          <View style={styles.modalView}>
 
             <Image
-              style={{ width: '100%', height: '75%', borderRadius: 20 }}
+              style={styles.catchedImage}
+              // mostra a imagem a partir da URI presente na variável catchedPhoto (armazenado em JSON)
               source={{ uri: catchedPhoto }}
             />
             <View style={styles.cameraOptionsModal}>

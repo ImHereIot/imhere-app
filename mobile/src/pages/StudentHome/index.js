@@ -12,9 +12,9 @@ import styles from './styles'
 export default function StudentHome() {
 	const navigation = useNavigation();
 
-  function navigateTo(route) {
-    navigation.navigate(route);
-  }
+	function navigateTo(route) {
+		navigation.navigate(route);
+	}
 
 	return (
 		<View style={styles.container}>
@@ -23,9 +23,17 @@ export default function StudentHome() {
 				<TouchableOpacity onPress={() => navigateTo('NFC')}>
 					<Image style={styles.image} source={logoImg}></Image>
 				</TouchableOpacity>
-				<Text style={styles.headerText}>
-					Você possui <Text style={styles.headerTextBold}> 2 aulas </Text>hoje.
-				</Text>
+
+				<View style={styles.actions}>
+					<TouchableOpacity style={styles.logoff}>
+						<Text style={styles.logoffText}>Logoff</Text>
+						<Feather name="power" size={18} color="red" />
+					</TouchableOpacity>
+
+					<Text style={styles.headerText}>
+						Você possui <Text style={styles.headerTextBold}> 2 aulas </Text>hoje.
+					</Text>
+				</View>
 			</View>
 			<Text style={styles.title}>Bem-vindo</Text>
 			<Text style={styles.description}>Suas aulas, Leonardo:</Text>

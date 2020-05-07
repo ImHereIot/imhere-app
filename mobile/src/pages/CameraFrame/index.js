@@ -101,7 +101,7 @@ export default function CameraFrame() {
       {catchedPhoto &&
         <Modal
           animationType="slide"
-          // transparent="false"
+          // transparent="false"  
           visible={open}
         >
           <View style={styles.modalView}>

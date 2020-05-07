@@ -11,7 +11,7 @@ import api from '../../services/api'
 import logoImg from '../../../assets/logo2.png'
 import styles from './styles'
 
-export default function TeacherEditDetail() {
+export default function NewClass() {
   const route = useRoute();
   const navigation = useNavigation();
   
@@ -44,6 +44,16 @@ export default function TeacherEditDetail() {
     value: 'B111',
   }, {
     value: 'B112',
+  }];
+
+  let group = [{
+    value: 'SIN3MA',
+  }, {
+    value: 'ECP3CU',
+  }, {
+    value: 'SIN4MA',
+  }, {
+    value: 'SIN2MA',
   }];
 
   let institution = [{
@@ -93,6 +103,9 @@ export default function TeacherEditDetail() {
 
               <Text style={styles.classPropertyDropdown}>INSTITUIÇÃO:</Text>
               <Dropdown data={institution} style={styles.classValue} placeholder="Instituição"></Dropdown>
+
+              <Text style={styles.classPropertyDropdown}>TURMA:</Text>
+              <Dropdown data={group} style={styles.classValue} placeholder="Sala"></Dropdown>
 
               <Text style={styles.classPropertyDropdown}>SALA:</Text>
               <Dropdown data={classroom} style={styles.classValue} placeholder="Sala"></Dropdown>

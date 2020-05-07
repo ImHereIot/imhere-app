@@ -15,8 +15,8 @@ export default StyleSheet.create({
   },
 
   image: {
-    width: 100,
-    height: 100,
+    width: 120,
+    height: 120,
     resizeMode: 'contain'
   },
 
@@ -108,4 +108,22 @@ export default StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold'
   },
+
+  logoff: {
+    flexDirection: 'row',
+    marginBottom: 30,
+    marginLeft: 120,
+  },
+
+  logoffText:{
+    marginLeft: 6,
+    marginRight: 6,
+    color: '#737380',
+    fontSize: 16,
+  },
+
+  actions: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });

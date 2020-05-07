@@ -15,8 +15,8 @@ export default StyleSheet.create({
   },
 
   image: {
-    width: 100,
-    height: 100,
+    width: 120,
+    height: 120,
     resizeMode: 'contain'
   },
 
@@ -109,21 +109,42 @@ export default StyleSheet.create({
     fontWeight: 'bold'
   },
 
-  action: {
+  addClass: {
     backgroundColor: '#3498db',
     borderRadius: 8,
-    height: 50,
-    width: '48%',
+    height: 55,
+    width: '80%',
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
+    marginTop: 20,
+    marginBottom: 20,
   },
 
-  actionText: {
+  addClassText: {
     marginLeft: 6,
     marginRight: 6,
     color: '#FFF',
     fontSize: 20,
     fontWeight: 'bold',
   },
+
+  logoff: {
+    alignItems:'center',
+    justifyContent:'center',
+    flexDirection: 'row',
+    marginTop: 10,
+  },
+
+  logoffText:{
+    marginLeft: 6,
+    marginRight: 6,
+    color: '#737380',
+    fontSize: 14,
+  },
+
+  actions: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });

@@ -29,13 +29,20 @@ export default function TeacherHome() {
         <TouchableOpacity onPress={() => navigateTo('NFC')}>
           <Image style={styles.image} source={logoImg}></Image>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.action} onPress={navigateToNewClass}>
-          <Feather name="plus" size={20} color="#fff" />
-          <Text style={styles.actionText}>Aula</Text>
-        </TouchableOpacity>
+        <View style={styles.actions}>
+          <TouchableOpacity style={styles.addClass} onPress={navigateToNewClass}>
+            <Feather name="plus" size={18} color="#fff" />
+            <Text style={styles.addClassText}>Aula</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.logoff}>
+            <Feather name="power" size={18} color="red" />
+            <Text style={styles.logoffText}>Logoff</Text>
+          </TouchableOpacity>
+        </View>
       </View>
       <Text style={styles.title}>Bem-vindo</Text>
       <Text style={styles.description}>Suas aulas, Professor Rircardo:</Text>
+
       <Divider style={styles.divider} />
 
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -89,6 +96,6 @@ export default function TeacherHome() {
           </TouchableOpacity>
         </View>
       </ScrollView>
-    </View>
+    </View >
   );
 }

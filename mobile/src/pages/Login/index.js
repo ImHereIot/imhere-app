@@ -12,7 +12,7 @@ export default function Login() {
 
   Logon = () => {
     navigation.navigate('TeacherHome');
-    //navigation.navigate('StudentHome');
+    // navigation.navigate('StudentHome');
   }
 
   return (

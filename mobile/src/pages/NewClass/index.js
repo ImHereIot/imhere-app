@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { View, Image, TouchableOpacity, Text, KeyboardAvoidingView, Linking, ScrollView, StatusBar, TextInput, SafeAreaView } from 'react-native';
@@ -13,8 +12,16 @@ import styles from './styles'
 
 export default function NewClass() {
   const route = useRoute();
-  const navigation = useNavigation();
-  
+  const navigation = useNavigation(null);
+
+  const [lesson, setLesson] = useState(null);
+  const [date, setDate] = useState(null);
+  const [hour, setHour] = useState(null);
+  const [place, setPlace] = useState(null);
+  const [crew, setCrew] = useState(null);
+  const [room, setRoom] = useState(null);
+  const [detail, setDetail] = useState(null);
+
   // URI interna armazenada da foto  
   const catchedPhoto = route.params.catchedPhoto;
 
@@ -68,6 +75,53 @@ export default function NewClass() {
     navigation.navigate('CameraFrame');
   }
 
+  async function createLesson(lesson, date, hour, place, crew, room, detail) {
+
+    // const result = await fetch(`https://cryptic-hollows-60375.herokuapp.com/api/class`, {
+    //   method: 'POST',
+    //   body: ({
+    //     'idAula': JSON.stringify(lesson),
+    //     'data': JSON.stringify(date),
+    //     'horario': JSON.stringify(hour),
+    //     'unidade': JSON.stringify(place),
+    //     'idTurma': JSON.stringify(crew),
+    //     'sala': JSON.stringify(room),
+    //     'detalhe': JSON.stringify(detail),
+    //     'professor': 'Ricardo'
+    //   })
+    // })
+    //   .then(response => response.json())
+    //   .catch(e => { throw e; });
+
+    // return result;
+
+    api.post('api/class', {
+      idAula: lesson,
+      data: date,
+      horario: hour,
+      unidade: place,
+      turma: crew,
+      sala: room,
+      detalhe: detail
+    }).then(function (response) {
+      Alert.alert("Cadastrado com sucesso!");
+    }).catch(function (error) {
+      console.log(error);
+    });
+
+    console.log({
+      idAula: lesson,
+      data: date,
+      horario: hour,
+      unidade: place,
+      idTurma: crew,
+      sala: room,
+      detalhe: detail
+    })
+
+    // navigation.navigate('TeacherHome');
+  }
+
   return (
     <>
       <KeyboardAvoidingView
@@ -93,25 +147,57 @@ export default function NewClass() {
 
             <View style={styles.class}>
               <Text style={styles.classProperty}>AULA</Text>
-              <TextInput style={styles.classValue} placeholder="Nome da Aula"></TextInput>
+              <TextInput
+                style={styles.classValue}
+                placeholder="Nome da Aula"
+                onChangeText={lesson => setLesson(lesson)}
+              ></TextInput>
 
               <Text style={styles.classProperty}>DATA:</Text>
-              <TextInput style={styles.classValue} placeholder="Data"></TextInput>
+              <TextInput
+                style={styles.classValue}
+                placeholder="Data"
+                onChangeText={date => setDate(date)}
+              ></TextInput>
 
               <Text style={styles.classProperty}>HORÁRIO:</Text>
-              <TextInput style={styles.classValue} placeholder="Hora"></TextInput>
+              <TextInput
+                style={styles.classValue}
+                placeholder="Hora"
+                onChangeText={hour => setHour(hour)}
+              ></TextInput>
 
               <Text style={styles.classPropertyDropdown}>INSTITUIÇÃO:</Text>
-              <Dropdown data={institution} style={styles.classValue} placeholder="Instituição"></Dropdown>
+              <Dropdown
+                data={institution}
+                style={styles.classValue}
+                placeholder="Instituição"
+                onChangeText={place => setPlace(place)}
+              ></Dropdown>
 
               <Text style={styles.classPropertyDropdown}>TURMA:</Text>
-              <Dropdown data={group} style={styles.classValue} placeholder="Sala"></Dropdown>
+              <Dropdown
+                data={group}
+                style={styles.classValue}
+                placeholder="Sala"
+                onChangeText={crew => setCrew(crew)}
+              ></Dropdown>
 
               <Text style={styles.classPropertyDropdown}>SALA:</Text>
-              <Dropdown data={classroom} style={styles.classValue} placeholder="Sala"></Dropdown>
+              <Dropdown
+                data={classroom}
+                style={styles.classValue}
+                laceholder="Sala"
+                onChangeText={room => setRoom(room)}
+              ></Dropdown>
 
               <Text style={styles.classProperty}>DETALHES:</Text>
-              <TextInput style={styles.classValue} placeholder="Detalhes" multiline={true}></TextInput>
+              <TextInput
+                style={styles.classValue}
+                placeholder="Detalhes"
+                multiline={true}
+                onChangeText={detail => setDetail(detail)}
+              ></TextInput>
 
               <Text style={styles.classProperty}>MÍDIA:</Text>
 
@@ -141,7 +227,18 @@ export default function NewClass() {
 
             </View>
           </View>
-          <TouchableOpacity style={styles.createButton} onPress={navigateToBack}>
+          <TouchableOpacity
+            style={styles.createButton}
+            onPress={() => createLesson(
+              lesson,
+              date,
+              hour,
+              place,
+              crew,
+              room,
+              detail
+            )}
+          >
             <Feather name="check" size={20} color="#fff" />
             <Text style={styles.createText}>Confirmar Aula</Text>
           </TouchableOpacity>

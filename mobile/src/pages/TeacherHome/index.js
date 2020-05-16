@@ -13,20 +13,45 @@ export default function TeacherHome() {
   const navigation = useNavigation();
   const catchedPhoto = [];
 
+  const [lesson, setLesson] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  function navigateTo(route) {
-    navigation.navigate(route);
+  function navigateToDetail(lesson) {
+    navigation.navigate('TeacherEditDetail', { lesson });
+  }
+
+  function navigateToNFC() {
+    navigation.navigate('NFC');
   }
 
   function navigateToNewClass() {
     navigation.navigate('NewClass', catchedPhoto);
   }
 
+  async function loadLesson() {
+    if (loading) {
+      return;
+    }
+
+    setLoading(true);
+
+    const response = await api.get('api/class');
+    setLesson([...response.data.docs]);
+    //setLesson([...lesson, ...response.data]);
+    console.log(lesson);
+
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    loadLesson();
+  }, []);
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigateTo('NFC')}>
+        <TouchableOpacity onPress={() => navigateToNFC()}>
           <Image style={styles.image} source={logoImg}></Image>
         </TouchableOpacity>
         <View style={styles.actions}>
@@ -45,57 +70,41 @@ export default function TeacherHome() {
 
       <Divider style={styles.divider} />
 
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.class}>
-          <View style={styles.classStatus}>
-            <Text style={styles.classStatusText}>ENTROU 18:47</Text>
-            <Feather name="check" size={16} color="green" />
-          </View>
+      <FlatList
+        data={lesson}
+        keyExtractor={lesson => String(lesson.idNFC)}
+        showsVerticalScrollIndicator={false}
+        onEndReached={loadLesson}
+        onEndReachedThreshold={0.2} //indica quantos por cento está do fim da pagina (de 0 a 1)
+        renderItem={({ item: lesson }) => (
+          <>
+            <View style={styles.class}>
+              <View style={styles.classStatus}>
+                <Text style={styles.classStatusText}>ENTROU 18:47</Text>
+                <Feather name="check" size={16} color="green" />
+              </View>
 
-          <Text style={styles.className}>Dev. Mobile e IoT</Text>
+              <Text style={styles.className}>{lesson.idAula}</Text>
 
-          <View style={styles.dateTimeView}>
-            <Text style={styles.classDateTime}>07/04</Text>
-            <Text style={styles.classDateTime}>19:00</Text>
-          </View>
+              <View style={styles.dateTimeView}>
+                <Text style={styles.classDateTime}>{lesson.data}</Text>
+                <Text style={styles.classDateTime}>{lesson.horario}</Text>
+              </View>
 
-          <Text style={styles.classData}>UniSociesc-Marquês de Olinda | B102</Text>
-          <Text style={styles.classData}>22 alunos presentes.</Text>
+              <Text style={styles.classData}>{lesson.unidade} | {lesson.sala}</Text>
+              <Text style={styles.classData}>22 alunos presentes.</Text>
 
-          <TouchableOpacity
-            style={styles.detailsButton}
-            onPress={() => navigateTo('TeacherEditDetail')}
-          >
-            <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
-            <Feather name="arrow-right" size={16} color="#3498db" />
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.class}>
-          <View style={styles.classStatus}>
-            <Text style={styles.classStatusText, { fontSize: 12, color: '#f7b500', fontWeight: 'bold' }}>PENDENTE</Text>
-            <Feather name="minus" size={16} color="#f7b500" />
-          </View>
-
-          <Text style={styles.className}>Dev. Mobile e IoT</Text>
-
-          <View style={styles.dateTimeView}>
-            <Text style={styles.classDateTime}>07/04</Text>
-            <Text style={styles.classDateTime}>20:50</Text>
-          </View>
-
-          <Text style={styles.classData}>UniSociesc-Marquês de Olinda | B102</Text>
-          <Text style={styles.classData}></Text>
-
-          <TouchableOpacity
-            style={styles.detailsButton}
-            onPress={() => navigateTo('TeacherEditDetail')}
-          >
-            <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
-            <Feather name="arrow-right" size={16} color="#3498db" />
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+              <TouchableOpacity
+                style={styles.detailsButton}
+                onPress={() => navigateToDetail(lesson)}
+              >
+                <Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
+                <Feather name="arrow-right" size={16} color="#3498db" />
+              </TouchableOpacity>
+            </View>
+          </>
+        )}
+      />
     </View >
   );
 }

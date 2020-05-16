@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Feather } from '@expo/vector-icons'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { View, Image, TouchableOpacity, Text, KeyboardAvoidingView, Linking, ScrollView, StatusBar, TextInput } from 'react-native';
@@ -15,6 +15,15 @@ import styles from './styles'
 export default function TeacherEditDetail() {
   const navigation = useNavigation();
   const route = useRoute();
+  const lesson = route.params.lesson;
+
+  const [lesson2, setLesson2] = useState(null);
+  const [date, setDate] = useState(null);
+  const [hour, setHour] = useState(null);
+  const [place, setPlace] = useState(null);
+  const [crew, setCrew] = useState(null);
+  const [room, setRoom] = useState(null);
+  const [detail, setDetail] = useState(null);
 
   let classroom = [{
     value: 'B102',
@@ -52,6 +61,41 @@ export default function TeacherEditDetail() {
     navigation.navigate(route);
   }
 
+  async function updateLesson(lesson, date, hour, place, crew, room, detail) {
+
+    api.put(`api/class/${lesson.idNFC}`, {
+      idAula: lesson,
+      data: date,
+      horario: hour,
+      unidade: place,
+      turma: crew,
+      sala: room,
+      detalhe: detail
+    }).then(function (response) {
+      Alert.alert("Alterado com sucesso!");
+    }).catch(function (error) {
+      console.log(error);
+    });
+
+    console.log({
+      idAula: lesson,
+      data: date,
+      horario: hour,
+      unidade: place,
+      idTurma: crew,
+      sala: room,
+      detalhe: detail
+    })
+
+    // navigation.navigate('TeacherHome');
+  }
+
+  function deleteLesson(id) {
+    api.delete(`api/class/${id}`);
+
+    navigateToBack;
+  }
+
   return (
     <>
       <KeyboardAvoidingView
@@ -68,7 +112,7 @@ export default function TeacherEditDetail() {
             </TouchableOpacity>
 
             <View style={styles.titleClass}>
-              <Text style={styles.classProperty}>DESENVOLVIMENTO MOBILE E IOT</Text>
+              <Text style={styles.classProperty}>{lesson.idAula}</Text>
             </View>
 
             <TouchableOpacity onPress={navigateToBack}>
@@ -88,24 +132,19 @@ export default function TeacherEditDetail() {
               </View>
 
               <Text style={styles.classProperty}>DATA:</Text>
-              <TextInput style={styles.classValue} placeholder="Data">07/03/2020</TextInput>
+              <TextInput style={styles.classValue} placeholder="Data">{lesson.data}</TextInput>
 
               <Text style={styles.classProperty}>HORÁRIO:</Text>
-              <TextInput style={styles.classValue} placeholder="Hora">20:50</TextInput>
+              <TextInput style={styles.classValue} placeholder="Hora">{lesson.horario}</TextInput>
 
               <Text style={styles.classPropertyDropdown}>INSTITUIÇÃO:</Text>
-              <Dropdown data={institution} style={styles.classValue} placeholder="Instituição"></Dropdown>
+              <Dropdown data={institution} style={styles.classValue} placeholder="Instituição">{lesson.unidade}\</Dropdown>
 
               <Text style={styles.classPropertyDropdown}>SALA:</Text>
-              <Dropdown data={classroom} style={styles.classValue} placeholder="Sala"></Dropdown>
+              <Dropdown data={classroom} style={styles.classValue} placeholder="Sala">{lesson.sala}</Dropdown>
 
               <Text style={styles.classProperty}>DETALHES:</Text>
-              <TextInput style={styles.classValue} placeholder="Detalhes" multiline={true}>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-              </TextInput>
+              <TextInput style={styles.classValue} placeholder="Detalhes" multiline={true}>{lesson.detalhe}</TextInput>
             </View>
 
             <View style={styles.attendanceBox}>
@@ -139,7 +178,7 @@ export default function TeacherEditDetail() {
               </DataTable>
             </View>
           </View>
-          <TouchableOpacity style={styles.deleteButton} onPress={navigateToBack}>
+          <TouchableOpacity style={styles.deleteButton} onPress={() => deleteLesson(lesson.idNFC)}>
             <Feather name="trash-2" size={20} color="#fff" />
             <Text style={styles.deleteText}>Excluir</Text>
           </TouchableOpacity>

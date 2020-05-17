@@ -65,7 +65,7 @@ export default function StudentHome() {
 
 			<FlatList
 				data={lesson}
-				keyExtractor={lesson => String(lesson.idNFC)}
+				keyExtractor={lesson => String(lesson.idAula)}
 				showsVerticalScrollIndicator={false}
 				onEndReached={loadLesson}
 				onEndReachedThreshold={0.2} //indica quantos por cento está do fim da pagina (de 0 a 1)
@@ -78,7 +78,7 @@ export default function StudentHome() {
 								<Feather name="x" size={16} color="red" />
 							</View>
 
-							<Text style={styles.className}>{lesson.idAula}</Text>
+							<Text style={styles.className}>{lesson.nomeAula}</Text>
 
 							<View style={styles.dateTimeView}>
 								<Text style={styles.classDateTime}>{lesson.data}</Text>

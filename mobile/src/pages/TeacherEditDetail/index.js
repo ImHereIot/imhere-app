@@ -63,8 +63,8 @@ export default function TeacherEditDetail() {
 
   async function updateLesson(lesson, date, hour, place, crew, room, detail) {
 
-    api.put(`api/class/${lesson.idNFC}`, {
-      idAula: lesson,
+    api.put(`api/class/${lesson.idAula}`, {
+      nomeAula: lesson,
       data: date,
       horario: hour,
       unidade: place,
@@ -78,7 +78,7 @@ export default function TeacherEditDetail() {
     });
 
     console.log({
-      idAula: lesson,
+      nomeAula: lesson,
       data: date,
       horario: hour,
       unidade: place,
@@ -91,7 +91,8 @@ export default function TeacherEditDetail() {
   }
 
   function deleteLesson(id) {
-    api.delete(`api/class/${id}`);
+    console.log(id);
+    api.delete(`api/class/delete/${id}`);
 
     navigateToBack;
   }
@@ -112,7 +113,7 @@ export default function TeacherEditDetail() {
             </TouchableOpacity>
 
             <View style={styles.titleClass}>
-              <Text style={styles.classProperty}>{lesson.idAula}</Text>
+              <Text style={styles.classProperty}>{lesson.nomeAula}</Text>
             </View>
 
             <TouchableOpacity onPress={navigateToBack}>
@@ -178,7 +179,7 @@ export default function TeacherEditDetail() {
               </DataTable>
             </View>
           </View>
-          <TouchableOpacity style={styles.deleteButton} onPress={() => deleteLesson(lesson.idNFC)}>
+          <TouchableOpacity style={styles.deleteButton} onPress={() => deleteLesson(lesson.idAula)}>
             <Feather name="trash-2" size={20} color="#fff" />
             <Text style={styles.deleteText}>Excluir</Text>
           </TouchableOpacity>

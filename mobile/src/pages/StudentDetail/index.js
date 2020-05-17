@@ -26,7 +26,7 @@ export default function StudentDetail() {
 
 	function sendMail() {
 		MailComposer.composeAsync({
-			subject: `Aula de ${lesson.idAula}: `,
+			subject: `Aula de ${lesson.nomeAula}: `,
 			recipients: [`leomayerk@gmail.com`],
 			body: message,
 		});
@@ -41,7 +41,7 @@ export default function StudentDetail() {
 				</TouchableOpacity>
 
 				<View style={styles.titleClass}>
-					<Text style={styles.classProperty}>{lesson.idAula}</Text>
+					<Text style={styles.classProperty}>{lesson.nomeAula}</Text>
 				</View>
 
 				<TouchableOpacity onPress={navigateToBack}>

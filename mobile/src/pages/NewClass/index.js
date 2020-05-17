@@ -77,49 +77,29 @@ export default function NewClass() {
 
   async function createLesson(lesson, date, hour, place, crew, room, detail) {
 
-    // const result = await fetch(`https://cryptic-hollows-60375.herokuapp.com/api/class`, {
-    //   method: 'POST',
-    //   body: ({
-    //     'idAula': JSON.stringify(lesson),
-    //     'data': JSON.stringify(date),
-    //     'horario': JSON.stringify(hour),
-    //     'unidade': JSON.stringify(place),
-    //     'idTurma': JSON.stringify(crew),
-    //     'sala': JSON.stringify(room),
-    //     'detalhe': JSON.stringify(detail),
-    //     'professor': 'Ricardo'
-    //   })
-    // })
-    //   .then(response => response.json())
-    //   .catch(e => { throw e; });
-
-    // return result;
-
     api.post('api/class', {
-      idAula: lesson,
+      professor: 'teste',
+      nomeAula: lesson,
       data: date,
       horario: hour,
       unidade: place,
       turma: crew,
       sala: room,
-      detalhe: detail
-    }).then(function (response) {
-      Alert.alert("Cadastrado com sucesso!");
-    }).catch(function (error) {
-      console.log(error);
+      detalhe: detail,
     });
 
     console.log({
-      idAula: lesson,
+      professor: 'teste',
+      nomeAula: lesson,
       data: date,
       horario: hour,
       unidade: place,
-      idTurma: crew,
+      turma: crew,
       sala: room,
-      detalhe: detail
+      detalhe: detail,
     })
 
-    // navigation.navigate('TeacherHome');
+    navigation.navigate('TeacherHome');
   }
 
   return (

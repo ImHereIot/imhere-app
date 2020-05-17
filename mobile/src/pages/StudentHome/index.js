@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Feather } from '@expo/vector-icons';
-import { View, FlatList, Image, Text, TouchableOpacity, ScrollView, StatusBar } from 'react-native';
+import { View, FlatList, Image, Text, TouchableOpacity, StatusBar } from 'react-native';
 import { Divider } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native';
 
@@ -11,10 +11,34 @@ import styles from './styles'
 
 export default function StudentHome() {
 	const navigation = useNavigation();
+	const [lesson, setLesson] = useState([]);
+	const [loading, setLoading] = useState(false);
+
+	function navigateToDetail(lesson) {
+		navigation.navigate('StudentDetail', { lesson });
+	}
 
 	function navigateTo(route) {
 		navigation.navigate(route);
 	}
+	async function loadLesson() {
+		if (loading) {
+			return;
+		}
+
+		setLoading(true);
+
+		const response = await api.get('api/class');
+		setLesson([...response.data.docs]);
+		//setLesson([...lesson, ...response.data]);
+		console.log(lesson);
+
+		setLoading(false);
+	}
+
+	useEffect(() => {
+		loadLesson();
+	}, []);
 
 	return (
 		<View style={styles.container}>
@@ -39,57 +63,42 @@ export default function StudentHome() {
 			<Text style={styles.description}>Suas aulas, Leonardo:</Text>
 			<Divider style={styles.divider} />
 
-			<ScrollView showsVerticalScrollIndicator={false}>
-				<View style={styles.class}>
-					<View style={styles.classStatus}>
-						<Text style={styles.classStatusText}>ENTROU 18:47</Text>
-						<Feather name="check" size={16} color="green" />
-					</View>
+			<FlatList
+				data={lesson}
+				keyExtractor={lesson => String(lesson.idAula)}
+				showsVerticalScrollIndicator={false}
+				onEndReached={loadLesson}
+				onEndReachedThreshold={0.2} //indica quantos por cento está do fim da pagina (de 0 a 1)
+				renderItem={({ item: lesson }) => (
 
-					<Text style={styles.className}>Dev. Mobile e IoT</Text>
+					<>
+						<View style={styles.class}>
+							<View style={styles.classStatus}>
+								<Text style={styles.classStatusText, { fontSize: 12, color: 'red', fontWeight: 'bold' }}>FALTOU</Text>
+								<Feather name="x" size={16} color="red" />
+							</View>
 
-					<View style={styles.dateTimeView}>
-						<Text style={styles.classDateTime}>07/04</Text>
-						<Text style={styles.classDateTime}>19:00</Text>
-					</View>
+							<Text style={styles.className}>{lesson.nomeAula}</Text>
 
-					<Text style={styles.classData}>UniSociesc-Marquês de Olinda | B102</Text>
-					<Text style={styles.classData}>Professor Ricardo</Text>
+							<View style={styles.dateTimeView}>
+								<Text style={styles.classDateTime}>{lesson.data}</Text>
+                <Text style={styles.classDateTime}>{lesson.horario}</Text>
+							</View>
 
-					<TouchableOpacity
-						style={styles.detailsButton}
-						onPress={() => navigateTo('StudentDetail')}
-					>
-						<Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
-						<Feather name="arrow-right" size={16} color="#3498db" />
-					</TouchableOpacity>
-				</View>
+							<Text style={styles.classData}>{lesson.unidade} | {lesson.sala}</Text>
+							<Text style={styles.classData}>{lesson.professor}</Text>
 
-				<View style={styles.class}>
-					<View style={styles.classStatus}>
-						<Text style={styles.classStatusText, { fontSize: 12, color: 'red', fontWeight: 'bold' }}>FALTOU</Text>
-						<Feather name="x" size={16} color="red" />
-					</View>
-
-					<Text style={styles.className}>Dev. Mobile e IoT</Text>
-
-					<View style={styles.dateTimeView}>
-						<Text style={styles.classDateTime}>07/04</Text>
-						<Text style={styles.classDateTime}>20:50</Text>
-					</View>
-
-					<Text style={styles.classData}>UniSociesc-Marquês de Olinda | B102</Text>
-					<Text style={styles.classData}>Professor Ricardo</Text>
-
-					<TouchableOpacity
-						style={styles.detailsButton}
-						onPress={() => navigateTo('StudentDetail')}
-					>
-						<Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
-						<Feather name="arrow-right" size={16} color="#3498db" />
-					</TouchableOpacity>
-				</View>
-			</ScrollView>
+							<TouchableOpacity
+								style={styles.detailsButton}
+								onPress={() => navigateToDetail(lesson)}
+							>
+								<Text style={styles.detailsButtonText}>Ver mais detalhes</Text>
+								<Feather name="arrow-right" size={16} color="#3498db" />
+							</TouchableOpacity>
+						</View>
+					</>
+				)}
+			/>
 		</View>
 	);
 }

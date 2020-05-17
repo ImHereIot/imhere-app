@@ -6,17 +6,15 @@ import { View, Image, TouchableOpacity, Text, Linking, ScrollView, StatusBar } f
 import { Divider } from 'react-native-elements'
 import * as MailComposer from 'expo-mail-composer';
 
-
-import api from '../../services/api'
-
 import logoImg from '../../../assets/logo2.png'
 import styles from './styles'
 
 export default function StudentDetail() {
 	const navigation = useNavigation();
 	const route = useRoute();
+	const lesson = route.params.lesson;
 
-	const message = `Olá Professor,\n\nEstou entrando em contato pois\n\nAtenciosamente, Leonardo M. Kleesattel`;
+	const message = `Olá professor ${lesson.professor},\n\nEstou entrando em contato pois\n\nAtenciosamente, Leonardo M. Kleesattel`;
 
 	function navigateToBack() {
 		navigation.goBack();
@@ -28,8 +26,8 @@ export default function StudentDetail() {
 
 	function sendMail() {
 		MailComposer.composeAsync({
-			subject: `Aula de Desenolvimento Mobile e IoT: `,
-			recipients: [`leomayerk@hotmail.com`],
+			subject: `Aula de ${lesson.nomeAula}: `,
+			recipients: [`leomayerk@gmail.com`],
 			body: message,
 		});
 	}
@@ -43,7 +41,7 @@ export default function StudentDetail() {
 				</TouchableOpacity>
 
 				<View style={styles.titleClass}>
-					<Text style={styles.classProperty}>DESENVOLVIMENTO MOBILE E IOT</Text>
+					<Text style={styles.classProperty}>{lesson.nomeAula}</Text>
 				</View>
 
 				<TouchableOpacity onPress={navigateToBack}>
@@ -61,18 +59,18 @@ export default function StudentDetail() {
 
 					<Text style={styles.classProperty}>DATA E HORA:</Text>
 					<View style={styles.dateTimeView}>
-						<Text style={styles.dateTimeValue}>16/04/2020</Text>
-						<Text style={styles.dateTimeValue}>20:50</Text>
+						<Text style={styles.dateTimeValue}>{lesson.data}</Text>
+						<Text style={styles.dateTimeValue}>{lesson.horario}</Text>
 					</View>
 
 					<Text style={styles.classProperty}>LOCAL:</Text>
-					<Text style={styles.classValue}>UniSociesc - Marquês de Olinda | b102</Text>
+					<Text style={styles.classValue}>{lesson.unidade} | {lesson.sala}</Text>
 
 					<Text style={styles.classProperty}>PROFESSOR:</Text>
-					<Text style={styles.classValue}>Ricardo Pfitscher</Text>
+					<Text style={styles.classValue}>{lesson.professor}</Text>
 
 					<Text style={styles.classProperty}>DETALHES:</Text>
-					<Text style={styles.classValue}>Aqui eu vou escrever alguns detalhes de uma suposta aula</Text>
+					<Text style={styles.classValue}>{lesson.detalhe}</Text>
 				</View>
 
 				<View style={styles.contactBox}>

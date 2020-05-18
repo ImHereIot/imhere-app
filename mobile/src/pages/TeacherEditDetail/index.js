@@ -1,8 +1,8 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Feather } from '@expo/vector-icons'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import { View, Image, TouchableOpacity, Text, KeyboardAvoidingView, Linking, ScrollView, StatusBar, TextInput } from 'react-native';
+import { Alert, View, Image, TouchableOpacity, Text, KeyboardAvoidingView, Linking, ScrollView, StatusBar, TextInput } from 'react-native';
 import { Divider } from 'react-native-elements'
 import { DataTable } from 'react-native-paper';
 import { Dropdown } from 'react-native-material-dropdown';
@@ -17,13 +17,12 @@ export default function TeacherEditDetail() {
   const route = useRoute();
   const lesson = route.params.lesson;
 
-  const [lesson2, setLesson2] = useState(null);
-  const [date, setDate] = useState(null);
-  const [hour, setHour] = useState(null);
-  const [place, setPlace] = useState(null);
-  const [crew, setCrew] = useState(null);
-  const [room, setRoom] = useState(null);
-  const [detail, setDetail] = useState(null);
+  const [date, setDate] = useState(lesson.data);
+  const [hour, setHour] = useState(lesson.horario);
+  const [place, setPlace] = useState(lesson.unidade);
+  const [crew, setCrew] = useState(lesson.idTurma);
+  const [room, setRoom] = useState(lesson.sala);
+  const [detail, setDetail] = useState(lesson.detalhe);
 
   let classroom = [{
     value: 'B102',
@@ -49,52 +48,94 @@ export default function TeacherEditDetail() {
     value: 'B112',
   }];
 
+  let group = [{
+    value: 'SIN3MA',
+  }, {
+    value: 'ECP3CU',
+  }, {
+    value: 'SIN4MA',
+  }, {
+    value: 'SIN2MA',
+  }];
+
   let institution = [{
     value: 'UniSociesc - Marquês de Olinda',
   }];
 
-  function navigateToBack() {
-    navigation.goBack();
+  function navigateToBack(id) {
+    if (lesson.data !== date
+      ||lesson.horario !== hour
+      ||lesson.unidade !== place
+      ||lesson.idTurma !== crew
+      ||lesson.sala !== room
+      ||lesson.detalhe !== detail) {
+      Alert.alert('Deseja salvar suas alterações?',
+        'Se confirmar, suas alterações serão efetivadas.',
+        [
+          {
+            text: 'Cancelar',
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          {
+            text: 'Confirmar',
+            onPress: () => updateLesson(
+              id,
+              date,
+              hour,
+              place,
+              crew,
+              room,
+              detail
+            ),
+          },
+        ],
+        { cancelable: false }
+      );
+    } else {
+      navigation.goBack();
+    }
   }
 
   function navigateTo(route) {
     navigation.navigate(route);
   }
 
-  async function updateLesson(lesson, date, hour, place, crew, room, detail) {
-
-    api.put(`api/class/${lesson.idAula}`, {
-      nomeAula: lesson,
-      data: date,
-      horario: hour,
-      unidade: place,
-      turma: crew,
-      sala: room,
-      detalhe: detail
-    }).then(function (response) {
-      Alert.alert("Alterado com sucesso!");
-    }).catch(function (error) {
-      console.log(error);
-    });
+  async function updateLesson(id, date, hour, place, crew, room, detail) {
+    try {
+      api.put(`api/class/${id}`, {
+        data: date,
+        horario: hour,
+        unidade: place,
+        idTurma: crew,
+        sala: room,
+        detalhe: detail,
+      });
+    } catch (err) {
+      alert('Erro ao excluir aula, tente novamente!')
+    }
 
     console.log({
-      nomeAula: lesson,
+      idAula: id,
       data: date,
       horario: hour,
       unidade: place,
       idTurma: crew,
       sala: room,
-      detalhe: detail
+      detalhe: detail,
     })
-
-    // navigation.navigate('TeacherHome');
+    navigation.goBack();
   }
 
-  function deleteLesson(id) {
+  async function deleteLesson(id) {
     console.log(id);
-    api.delete(`api/class/delete/${id}`);
 
-    navigateToBack;
+    try {
+      await api.delete(`api/class/delete/${id}`);
+      navigation.navigate('TeacherHome');
+    } catch (err) {
+      alert('Erro ao excluir aula, tente novamente!')
+    }
   }
 
   return (
@@ -116,7 +157,7 @@ export default function TeacherEditDetail() {
               <Text style={styles.classProperty}>{lesson.nomeAula}</Text>
             </View>
 
-            <TouchableOpacity onPress={navigateToBack}>
+            <TouchableOpacity onPress={() => navigateToBack(lesson.idAula)}>
               <Feather name='arrow-left' size={36} color="#4682B4" />
             </TouchableOpacity>
           </View>
@@ -133,19 +174,53 @@ export default function TeacherEditDetail() {
               </View>
 
               <Text style={styles.classProperty}>DATA:</Text>
-              <TextInput style={styles.classValue} placeholder="Data">{lesson.data}</TextInput>
+              <TextInput
+                style={styles.classValue}
+                placeholder="Data"
+                onChangeText={date => setDate(date)}
+              >{lesson.data}</TextInput>
 
               <Text style={styles.classProperty}>HORÁRIO:</Text>
-              <TextInput style={styles.classValue} placeholder="Hora">{lesson.horario}</TextInput>
+              <TextInput
+                style={styles.classValue}
+                placeholder="Hora"
+                onChangeText={hour => setHour(hour)}
+              >{lesson.horario}</TextInput>
 
               <Text style={styles.classPropertyDropdown}>INSTITUIÇÃO:</Text>
-              <Dropdown data={institution} style={styles.classValue} placeholder="Instituição">{lesson.unidade}\</Dropdown>
+              <Dropdown
+                data={institution}
+                style={styles.classValue}
+                placeholder="Instituição"
+                onChangeText={place => setPlace(place)}
+                value={lesson.unidade}
+              ></Dropdown>
+
+              <Text style={styles.classPropertyDropdown}>TURMA:</Text>
+              <Dropdown
+                data={group}
+                style={styles.classValue}
+                placeholder="Turma"
+                onChangeText={crew => setCrew(crew)}
+                value={lesson.idTurma}
+              ></Dropdown>
 
               <Text style={styles.classPropertyDropdown}>SALA:</Text>
-              <Dropdown data={classroom} style={styles.classValue} placeholder="Sala">{lesson.sala}</Dropdown>
+              <Dropdown
+                data={classroom}
+                style={styles.classValue}
+                placeholder="Sala"
+                onChangeText={room => setRoom(room)}
+                value={lesson.sala}
+              ></Dropdown>
 
               <Text style={styles.classProperty}>DETALHES:</Text>
-              <TextInput style={styles.classValue} placeholder="Detalhes" multiline={true}>{lesson.detalhe}</TextInput>
+              <TextInput
+                style={styles.classValue}
+                placeholder="Detalhes"
+                multiline={true}
+                onChangeText={detail => setDetail(detail)}
+              >{lesson.detalhe}</TextInput>
             </View>
 
             <View style={styles.attendanceBox}>

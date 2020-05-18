@@ -13,8 +13,9 @@ export default function StudentDetail() {
 	const navigation = useNavigation();
 	const route = useRoute();
 	const lesson = route.params.lesson;
+	const person = route.params.person;
 
-	const message = `Olá professor ${lesson.professor},\n\nEstou entrando em contato pois\n\nAtenciosamente, Leonardo M. Kleesattel`;
+	const message = `Olá professor ${lesson.professor},\n\nEstou entrando em contato pois\n\nAtenciosamente, ${person.nomePessoa}`;
 
 	function navigateToBack() {
 		navigation.goBack();
@@ -27,7 +28,7 @@ export default function StudentDetail() {
 	function sendMail() {
 		MailComposer.composeAsync({
 			subject: `Aula de ${lesson.nomeAula}: `,
-			recipients: [`leomayerk@gmail.com`],
+			recipients: [`${person.email}`],
 			body: message,
 		});
 	}

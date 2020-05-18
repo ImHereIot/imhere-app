@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Feather } from '@expo/vector-icons';
-import { View, FlatList, Image, Text, TouchableOpacity, ScrollView, StatusBar } from 'react-native';
+import { View, FlatList, Image, Text, TouchableOpacity, StatusBar } from 'react-native';
 import { Divider } from 'react-native-elements'
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import api from '../../services/api'
 
@@ -11,7 +11,9 @@ import styles from './styles'
 
 export default function TeacherHome() {
   const navigation = useNavigation();
-  const catchedPhoto = [];
+  const route = useRoute();
+  // const catchedPhoto = [];
+  let person = route.params.person;
 
   const [lesson, setLesson] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -25,8 +27,13 @@ export default function TeacherHome() {
   }
 
   function navigateToNewClass() {
-    navigation.navigate('NewClass', catchedPhoto);
+    navigation.navigate('NewClass', /*catchedPhoto,*/ {person});
   }
+
+  function logoff() {
+		person = {}
+		navigation.navigate('Login');
+	}
 
   async function loadLesson() {
     if (loading) {
@@ -35,9 +42,9 @@ export default function TeacherHome() {
 
     setLoading(true);
 
-    const response = await api.get('api/class');
-    setLesson([...response.data.docs]);
-    //setLesson([...lesson, ...response.data]);
+    const response = await api.get(`api/class/${person.registro}`);
+    setLesson([...response.data.retornoAula]);
+    // setLesson([...lesson, ...response.data]);
     console.log(lesson);
 
     setLoading(false);
@@ -59,14 +66,14 @@ export default function TeacherHome() {
             <Feather name="plus" size={18} color="#fff" />
             <Text style={styles.addClassText}>Aula</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.logoff}>
+          <TouchableOpacity style={styles.logoff} onPress={() => logoff()}>
             <Feather name="power" size={18} color="red" />
             <Text style={styles.logoffText}>Logoff</Text>
           </TouchableOpacity>
         </View>
       </View>
       <Text style={styles.title}>Bem-vindo</Text>
-      <Text style={styles.description}>Suas aulas, Professor Rircardo:</Text>
+      <Text style={styles.description}>Suas aulas, Professor {person.nomePessoa}:</Text>
 
       <Divider style={styles.divider} />
 

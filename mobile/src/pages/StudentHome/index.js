@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { View, FlatList, Image, Text, TouchableOpacity, StatusBar } from 'react-native';
 import { Divider } from 'react-native-elements'
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import api from '../../services/api'
 
@@ -11,11 +11,13 @@ import styles from './styles'
 
 export default function StudentHome() {
 	const navigation = useNavigation();
+	const route = useRoute();
 	const [lesson, setLesson] = useState([]);
 	const [loading, setLoading] = useState(false);
+	let person = route.params.person;
 
 	function navigateToDetail(lesson) {
-		navigation.navigate('StudentDetail', { lesson });
+		navigation.navigate('StudentDetail', { lesson, person });
 	}
 
 	function navigateTo(route) {
@@ -28,12 +30,17 @@ export default function StudentHome() {
 
 		setLoading(true);
 
-		const response = await api.get('api/class');
-		setLesson([...response.data.docs]);
+		const response = await api.get(`api/class/${person.registro}`);
+		setLesson([...response.data.retornoAula]);
 		//setLesson([...lesson, ...response.data]);
-		console.log(lesson);
+		console.log(person.registro);
 
 		setLoading(false);
+	}
+
+	function logoff() {
+		person = {}
+		navigation.navigate('Login');
 	}
 
 	useEffect(() => {
@@ -49,7 +56,7 @@ export default function StudentHome() {
 				</TouchableOpacity>
 
 				<View style={styles.actions}>
-					<TouchableOpacity style={styles.logoff}>
+					<TouchableOpacity style={styles.logoff} onPress={() => logoff()}>
 						<Text style={styles.logoffText}>Logoff</Text>
 						<Feather name="power" size={18} color="red" />
 					</TouchableOpacity>
@@ -60,7 +67,7 @@ export default function StudentHome() {
 				</View>
 			</View>
 			<Text style={styles.title}>Bem-vindo</Text>
-			<Text style={styles.description}>Suas aulas, Leonardo:</Text>
+			<Text style={styles.description}>Suas aulas, {person.nomePessoa}:</Text>
 			<Divider style={styles.divider} />
 
 			<FlatList

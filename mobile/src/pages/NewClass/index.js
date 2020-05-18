@@ -13,20 +13,22 @@ import styles from './styles'
 export default function NewClass() {
   const route = useRoute();
   const navigation = useNavigation(null);
-
-  const [lesson, setLesson] = useState(null);
-  const [date, setDate] = useState(null);
-  const [hour, setHour] = useState(null);
-  const [place, setPlace] = useState(null);
-  const [crew, setCrew] = useState(null);
-  const [room, setRoom] = useState(null);
-  const [detail, setDetail] = useState(null);
-
   // URI interna armazenada da foto  
-  const catchedPhoto = route.params.catchedPhoto;
+  // const catchedPhoto = route.params.catchedPhoto;
+  const person = route.params.person;
+
+  console.log(person);
+
+  const [lesson, setLesson] = useState('');
+  const [date, setDate] = useState('');
+  const [hour, setHour] = useState('');
+  const [place, setPlace] = useState('');
+  const [crew, setCrew] = useState('');
+  const [room, setRoom] = useState('');
+  const [detail, setDetail] = useState('');
 
   // Lembrar de olhar terminal para visualizar a URI da imagem
-  console.log({ uri: catchedPhoto });
+  // console.log({ uri: catchedPhoto });
 
 
   let classroom = [{
@@ -75,31 +77,39 @@ export default function NewClass() {
     navigation.navigate('CameraFrame');
   }
 
-  async function createLesson(lesson, date, hour, place, crew, room, detail) {
+  async function createLesson(teacherId, teacher, lesson, date, hour, place, crew, room, detail) {
+    
+    console.log(teacherId);
+    console.log(teacher);
+    try {
+      await api.post('api/class', {
+        idProfessor: teacherId,
+        professor: teacher,
+        nomeAula: lesson,
+        data: date,
+        horario: hour,
+        unidade: place,
+        idTurma: crew,
+        sala: room,
+        detalhe: detail,
+      });
 
-    api.post('api/class', {
-      professor: 'teste',
-      nomeAula: lesson,
-      data: date,
-      horario: hour,
-      unidade: place,
-      turma: crew,
-      sala: room,
-      detalhe: detail,
-    });
+      console.log({
+        idProfessor: teacherId,
+        professor: teacher,
+        nomeAula: lesson,
+        data: date,
+        horario: hour,
+        unidade: place,
+        idTurma: crew,
+        sala: room,
+        detalhe: detail,
+      }, 'Registro criado!')
 
-    console.log({
-      professor: 'teste',
-      nomeAula: lesson,
-      data: date,
-      horario: hour,
-      unidade: place,
-      turma: crew,
-      sala: room,
-      detalhe: detail,
-    })
-
-    navigation.navigate('TeacherHome');
+      navigation.navigate('TeacherHome');
+    } catch (err) {
+      alert('Erro ao cadastrar aula, tente novamente!')
+    }
   }
 
   return (
@@ -159,7 +169,7 @@ export default function NewClass() {
               <Dropdown
                 data={group}
                 style={styles.classValue}
-                placeholder="Sala"
+                placeholder="Turma"
                 onChangeText={crew => setCrew(crew)}
               ></Dropdown>
 
@@ -179,11 +189,11 @@ export default function NewClass() {
                 onChangeText={detail => setDetail(detail)}
               ></TextInput>
 
-              <Text style={styles.classProperty}>MÍDIA:</Text>
+              {/* <Text style={styles.classProperty}>MÍDIA:</Text> */}
 
               {/* Quando tem foto (volta da câmera, com foto) */}
-              {catchedPhoto &&
-                <View>
+              {/* {catchedPhoto && */}
+                {/* <View>
                   <View style={styles.mediaButton}>
                     <TouchableOpacity onPress={navigateToCamera}>
                       <Image
@@ -195,21 +205,23 @@ export default function NewClass() {
                   </View>
                   <View><Feather style={styles.imageIcon} name="camera" size={20} color="#4682B4" /></View>
                 </View>
-              }
+              } */}
 
               {/* Quanto não tem foto na variável */}
-              {!catchedPhoto &&
+              {/* {!catchedPhoto &&
                 <TouchableOpacity style={styles.addMediaButton} onPress={navigateToCamera}>
                   <Feather name="plus" size={20} color="#4682B4" />
                   <Feather name="camera" size={20} color="#4682B4" />
                 </TouchableOpacity>
-              }
+              } */}
 
             </View>
           </View>
           <TouchableOpacity
             style={styles.createButton}
             onPress={() => createLesson(
+              person.registro,
+              person.nomePessoa,
               lesson,
               date,
               hour,

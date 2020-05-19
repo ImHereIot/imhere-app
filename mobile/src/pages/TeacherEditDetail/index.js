@@ -20,7 +20,6 @@ export default function TeacherEditDetail() {
   const [date, setDate] = useState(lesson.data);
   const [hour, setHour] = useState(lesson.horario);
   const [place, setPlace] = useState(lesson.unidade);
-  const [crew, setCrew] = useState(lesson.idTurma);
   const [room, setRoom] = useState(lesson.sala);
   const [detail, setDetail] = useState(lesson.detalhe);
 
@@ -64,11 +63,10 @@ export default function TeacherEditDetail() {
 
   function navigateToBack(id) {
     if (lesson.data !== date
-      ||lesson.horario !== hour
-      ||lesson.unidade !== place
-      ||lesson.idTurma !== crew
-      ||lesson.sala !== room
-      ||lesson.detalhe !== detail) {
+      || lesson.horario !== hour
+      || lesson.unidade !== place
+      || lesson.sala !== room
+      || lesson.detalhe !== detail) {
       Alert.alert('Deseja salvar suas alterações?',
         'Se confirmar, suas alterações serão efetivadas.',
         [
@@ -84,7 +82,6 @@ export default function TeacherEditDetail() {
               date,
               hour,
               place,
-              crew,
               room,
               detail
             ),
@@ -101,13 +98,12 @@ export default function TeacherEditDetail() {
     navigation.navigate(route);
   }
 
-  async function updateLesson(id, date, hour, place, crew, room, detail) {
+  async function updateLesson(id, date, hour, place, room, detail) {
     try {
       api.put(`api/class/${id}`, {
         data: date,
         horario: hour,
         unidade: place,
-        idTurma: crew,
         sala: room,
         detalhe: detail,
       });
@@ -120,16 +116,32 @@ export default function TeacherEditDetail() {
       data: date,
       horario: hour,
       unidade: place,
-      idTurma: crew,
       sala: room,
       detalhe: detail,
     })
     navigation.goBack();
   }
 
-  async function deleteLesson(id) {
-    console.log(id);
+  async function confirmDelete(id) {
 
+    Alert.alert('Deseja excuir essa aula?',
+      'Se confirmar, não conseguirá acessar mais essa aula!',
+      [
+        {
+          text: 'Cancelar',
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        {
+          text: 'Confirmar',
+          onPress: () => deleteLesson(id),
+        },
+      ],
+      { cancelable: false }
+    );
+  }
+
+  async function deleteLesson(id) {
     try {
       await api.delete(`api/class/delete/${id}`);
       navigation.navigate('TeacherHome');
@@ -196,14 +208,10 @@ export default function TeacherEditDetail() {
                 value={lesson.unidade}
               ></Dropdown>
 
-              <Text style={styles.classPropertyDropdown}>TURMA:</Text>
-              <Dropdown
-                data={group}
+              <Text style={styles.classProperty}>TURMA:</Text>
+              <Text
                 style={styles.classValue}
-                placeholder="Turma"
-                onChangeText={crew => setCrew(crew)}
-                value={lesson.idTurma}
-              ></Dropdown>
+              >{lesson.idTurma}</Text>
 
               <Text style={styles.classPropertyDropdown}>SALA:</Text>
               <Dropdown
@@ -254,7 +262,7 @@ export default function TeacherEditDetail() {
               </DataTable>
             </View>
           </View>
-          <TouchableOpacity style={styles.deleteButton} onPress={() => deleteLesson(lesson.idAula)}>
+          <TouchableOpacity style={styles.deleteButton} onPress={() => confirmDelete(lesson.idAula)}>
             <Feather name="trash-2" size={20} color="#fff" />
             <Text style={styles.deleteText}>Excluir</Text>
           </TouchableOpacity>

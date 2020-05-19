@@ -70,6 +70,9 @@ export default function StudentDetail() {
 					<Text style={styles.classProperty}>PROFESSOR:</Text>
 					<Text style={styles.classValue}>{lesson.professor}</Text>
 
+					<Text style={styles.classProperty}>TURMA:</Text>
+					<Text style={styles.classValue}>{lesson.idTurma}</Text>
+
 					<Text style={styles.classProperty}>DETALHES:</Text>
 					<Text style={styles.classValue}>{lesson.detalhe}</Text>
 				</View>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { View, Image, TouchableOpacity, Text, KeyboardAvoidingView, Linking, ScrollView, StatusBar, TextInput, SafeAreaView } from 'react-native';
+import { View, Alert, Image, TouchableOpacity, Text, KeyboardAvoidingView, Linking, ScrollView, StatusBar, TextInput, SafeAreaView } from 'react-native';
 import { Divider } from 'react-native-elements';
 import { Dropdown } from 'react-native-material-dropdown';
 
@@ -78,37 +78,54 @@ export default function NewClass() {
   }
 
   async function createLesson(teacherId, teacher, lesson, date, hour, place, crew, room, detail) {
-    
-    console.log(teacherId);
-    console.log(teacher);
-    try {
-      await api.post('api/class', {
-        idProfessor: teacherId,
-        professor: teacher,
-        nomeAula: lesson,
-        data: date,
-        horario: hour,
-        unidade: place,
-        idTurma: crew,
-        sala: room,
-        detalhe: detail,
-      });
+    if (lesson == ''
+      || date == ''
+      || hour == ''
+      || place == ''
+      || crew == ''
+      || room == '') {
+      Alert.alert('Ops!',
+        'Aula, Data, Horário, Instituição, Turma e Sala são campos obrigatórios.',
+        [
+          {
+            text: 'Ok, vou informar esses campos!',
+            onPress: () => console.log("Ok pressed"),
+            style: "cancel"
+          },
+        ],
+        { cancelable: false }
+      );
+    } else {
+      try {
 
-      console.log({
-        idProfessor: teacherId,
-        professor: teacher,
-        nomeAula: lesson,
-        data: date,
-        horario: hour,
-        unidade: place,
-        idTurma: crew,
-        sala: room,
-        detalhe: detail,
-      }, 'Registro criado!')
+        console.log({
+          idProfessor: teacherId,
+          professor: teacher,
+          nomeAula: lesson,
+          data: date,
+          horario: hour,
+          unidade: place,
+          idTurma: crew,
+          sala: room,
+          detalhe: detail,
+        }, 'Registro criado!')
+        
+        await api.post('api/class', {
+          idProfessor: teacherId,
+          professor: teacher,
+          nomeAula: lesson,
+          data: date,
+          horario: hour,
+          unidade: place,
+          idTurma: crew,
+          sala: room,
+          detalhe: detail,
+        });
 
-      navigation.navigate('TeacherHome');
-    } catch (err) {
-      alert('Erro ao cadastrar aula, tente novamente!')
+        navigation.navigate('TeacherHome');
+      } catch (err) {
+        alert('Erro ao cadastrar aula, tente novamente!')
+      }
     }
   }
 
@@ -193,7 +210,7 @@ export default function NewClass() {
 
               {/* Quando tem foto (volta da câmera, com foto) */}
               {/* {catchedPhoto && */}
-                {/* <View>
+              {/* <View>
                   <View style={styles.mediaButton}>
                     <TouchableOpacity onPress={navigateToCamera}>
                       <Image

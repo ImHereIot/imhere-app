@@ -27,7 +27,7 @@ export default function TeacherHome() {
   }
 
   function navigateToNewClass() {
-    navigation.navigate('NewClass', /*catchedPhoto,*/ {person});
+    navigation.navigate('NewClass', /*catchedPhoto,*/ { person });
   }
 
   function logoff() {

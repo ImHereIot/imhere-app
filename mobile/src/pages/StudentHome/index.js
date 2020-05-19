@@ -33,7 +33,6 @@ export default function StudentHome() {
 		const response = await api.get(`api/class/${person.registro}`);
 		setLesson([...response.data.retornoAula]);
 		//setLesson([...lesson, ...response.data]);
-		console.log(person.registro);
 
 		setLoading(false);
 	}

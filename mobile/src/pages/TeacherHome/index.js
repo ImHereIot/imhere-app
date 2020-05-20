@@ -31,9 +31,9 @@ export default function TeacherHome() {
   }
 
   function logoff() {
-		person = {}
-		navigation.navigate('Login');
-	}
+    person = {}
+    navigation.navigate('Login');
+  }
 
   async function loadLesson() {
     if (loading) {
@@ -94,8 +94,12 @@ export default function TeacherHome() {
               <Text style={styles.className}>{lesson.nomeAula}</Text>
 
               <View style={styles.dateTimeView}>
-                <Text style={styles.classDateTime}>{lesson.data}</Text>
-                <Text style={styles.classDateTime}>{lesson.horario}</Text>
+                <Text style={styles.classDateTime}>
+                  {`${new Date(lesson.data).getUTCDate()}/${new Date(lesson.data).getUTCMonth() + 1}/${new Date(lesson.data).getUTCFullYear()}`}
+                </Text>
+                <Text style={styles.classDateTime}>
+                  {`${new Date(lesson.horario).getUTCHours()}:${new Date(lesson.horario).getUTCMinutes()}`}
+                </Text>
               </View>
 
               <Text style={styles.classData}>{lesson.unidade} | {lesson.sala}</Text>

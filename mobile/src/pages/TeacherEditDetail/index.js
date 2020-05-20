@@ -62,35 +62,53 @@ export default function TeacherEditDetail() {
   }];
 
   function navigateToBack(id) {
-    if (lesson.data !== date
-      || lesson.horario !== hour
-      || lesson.unidade !== place
-      || lesson.sala !== room
-      || lesson.detalhe !== detail) {
-      Alert.alert('Deseja salvar suas alterações?',
-        'Se confirmar, suas alterações serão efetivadas.',
+    if (lesson == ''
+      || date == ''
+      || hour == ''
+      || place == ''
+      || room == '') {
+      Alert.alert('Ops!',
+        'Aula, Data, Horário, Instituição, Turma e Sala são campos obrigatórios.',
         [
           {
-            text: 'Cancelar',
-            onPress: () => console.log("Cancel Pressed"),
+            text: 'Ok, vou informar esses campos!',
+            onPress: () => console.log("Ok pressed"),
             style: "cancel"
-          },
-          {
-            text: 'Confirmar',
-            onPress: () => updateLesson(
-              id,
-              date,
-              hour,
-              place,
-              room,
-              detail
-            ),
           },
         ],
         { cancelable: false }
       );
     } else {
-      navigation.goBack();
+      if (lesson.data !== date
+        || lesson.horario !== hour
+        || lesson.unidade !== place
+        || lesson.sala !== room
+        || lesson.detalhe !== detail) {
+        Alert.alert('Deseja salvar suas alterações?',
+          'Se confirmar, suas alterações serão efetivadas.',
+          [
+            {
+              text: 'Cancelar',
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel"
+            },
+            {
+              text: 'Confirmar',
+              onPress: () => updateLesson(
+                id,
+                date,
+                hour,
+                place,
+                room,
+                detail
+              ),
+            },
+          ],
+          { cancelable: false }
+        );
+      } else {
+        navigation.goBack();
+      }
     }
   }
 

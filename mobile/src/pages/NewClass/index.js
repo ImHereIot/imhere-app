@@ -39,21 +39,7 @@ export default function NewClass() {
     value: 'B104',
   }, {
     value: 'B105',
-  }, {
-    value: 'B106',
-  }, {
-    value: 'B107',
-  }, {
-    value: 'B108',
-  }, {
-    value: 'B109',
-  }, {
-    value: 'B110',
-  }, {
-    value: 'B111',
-  }, {
-    value: 'B112',
-  }];
+  }, ];
 
   let group = [{
     value: 'SIN3MA',

@@ -6,6 +6,7 @@ import { Alert, View, Image, TouchableOpacity, Text, KeyboardAvoidingView, Linki
 import { Divider } from 'react-native-elements'
 import { DataTable } from 'react-native-paper';
 import { Dropdown } from 'react-native-material-dropdown';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import api from '../../services/api'
 
@@ -17,11 +18,26 @@ export default function TeacherEditDetail() {
   const route = useRoute();
   const lesson = route.params.lesson;
 
-  const [date, setDate] = useState(lesson.data);
-  const [hour, setHour] = useState(lesson.horario);
+  const classDate = new Date(lesson.data);
+  const classTime = new Date(lesson.horario);
+
+  const [date, setDate] = useState(classDate);
+  const [hour, setHour] = useState(classTime);
   const [place, setPlace] = useState(lesson.unidade);
   const [room, setRoom] = useState(lesson.sala);
   const [detail, setDetail] = useState(lesson.detalhe);
+
+  const assignDate = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setDate(currentDate);
+    console.log(currentDate);
+  }
+
+  const assignTime = (event, selectedDate) => {
+    const currentTime = selectedDate || hour;
+    setHour(currentTime);
+    console.log(currentTime);
+  }
 
   let classroom = [{
     value: 'B102',
@@ -31,20 +47,6 @@ export default function TeacherEditDetail() {
     value: 'B104',
   }, {
     value: 'B105',
-  }, {
-    value: 'B106',
-  }, {
-    value: 'B107',
-  }, {
-    value: 'B108',
-  }, {
-    value: 'B109',
-  }, {
-    value: 'B110',
-  }, {
-    value: 'B111',
-  }, {
-    value: 'B112',
   }];
 
   let group = [{
@@ -126,7 +128,7 @@ export default function TeacherEditDetail() {
         detalhe: detail,
       });
     } catch (err) {
-      alert('Erro ao excluir aula, tente novamente!')
+      alert('Erro ao alterar aula, tente novamente!')
     }
 
     console.log({
@@ -204,18 +206,23 @@ export default function TeacherEditDetail() {
               </View>
 
               <Text style={styles.classProperty}>DATA:</Text>
-              <TextInput
-                style={styles.classValue}
-                placeholder="Data"
-                onChangeText={date => setDate(date)}
-              >{lesson.data}</TextInput>
+              <DateTimePicker
+                display='default'
+                value={date}
+                mode='date'
+                timeZoneOffsetInMinutes={0}
+                onChange={assignDate}
+              />
 
               <Text style={styles.classProperty}>HORÁRIO:</Text>
-              <TextInput
-                style={styles.classValue}
-                placeholder="Hora"
-                onChangeText={hour => setHour(hour)}
-              >{lesson.horario}</TextInput>
+              <DateTimePicker
+                display='default'
+                value={hour}
+                mode='time'
+                timeZoneOffsetInMinutes={0}
+                onChange={assignTime}
+                minuteInterval='5'
+              />
 
               <Text style={styles.classPropertyDropdown}>INSTITUIÇÃO:</Text>
               <Dropdown

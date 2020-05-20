@@ -4,6 +4,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { View, Alert, Image, TouchableOpacity, Text, KeyboardAvoidingView, Linking, ScrollView, StatusBar, TextInput, SafeAreaView } from 'react-native';
 import { Divider } from 'react-native-elements';
 import { Dropdown } from 'react-native-material-dropdown';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import api from '../../services/api'
 
@@ -17,19 +18,25 @@ export default function NewClass() {
   // const catchedPhoto = route.params.catchedPhoto;
   const person = route.params.person;
 
-  console.log(person);
-
   const [lesson, setLesson] = useState('');
-  const [date, setDate] = useState('');
-  const [hour, setHour] = useState('');
+  const [date, setDate] = useState(new Date());
+  const [hour, setHour] = useState(new Date());
   const [place, setPlace] = useState('');
   const [crew, setCrew] = useState('');
   const [room, setRoom] = useState('');
   const [detail, setDetail] = useState('');
 
-  // Lembrar de olhar terminal para visualizar a URI da imagem
-  // console.log({ uri: catchedPhoto });
+  const assignDate = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setDate(currentDate);
+    console.log(currentDate);
+  }
 
+  const assignTime = (event, selectedDate) => {
+    const currentTime = selectedDate || hour;
+    setHour(currentTime);
+    console.log(currentTime);
+  }
 
   let classroom = [{
     value: 'B102',
@@ -39,7 +46,7 @@ export default function NewClass() {
     value: 'B104',
   }, {
     value: 'B105',
-  }, ];
+  },];
 
   let group = [{
     value: 'SIN3MA',
@@ -95,7 +102,7 @@ export default function NewClass() {
           sala: room,
           detalhe: detail,
         }, 'Registro criado!')
-        
+
         await api.post('api/class', {
           idProfessor: teacherId,
           professor: teacher,
@@ -147,18 +154,23 @@ export default function NewClass() {
               ></TextInput>
 
               <Text style={styles.classProperty}>DATA:</Text>
-              <TextInput
-                style={styles.classValue}
-                placeholder="Data"
-                onChangeText={date => setDate(date)}
-              ></TextInput>
+              <DateTimePicker
+                display='default'
+                value={date}
+                mode='date'
+                timeZoneOffsetInMinutes={0}
+                onChange={assignDate}
+              />
 
               <Text style={styles.classProperty}>HORÁRIO:</Text>
-              <TextInput
-                style={styles.classValue}
-                placeholder="Hora"
-                onChangeText={hour => setHour(hour)}
-              ></TextInput>
+              <DateTimePicker
+                display='default'
+                value={hour}
+                mode='time'
+                timeZoneOffsetInMinutes={0}
+                onChange={assignTime}
+                minuteInterval='5'
+              />
 
               <Text style={styles.classPropertyDropdown}>INSTITUIÇÃO:</Text>
               <Dropdown

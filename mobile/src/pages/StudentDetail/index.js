@@ -22,8 +22,8 @@ export default function StudentDetail() {
 	}
 
 	function navigateTo(route) {
-    navigation.navigate(route);
-  }
+		navigation.navigate(route);
+	}
 
 	function sendMail() {
 		MailComposer.composeAsync({
@@ -60,8 +60,12 @@ export default function StudentDetail() {
 
 					<Text style={styles.classProperty}>DATA E HORA:</Text>
 					<View style={styles.dateTimeView}>
-						<Text style={styles.dateTimeValue}>{lesson.data}</Text>
-						<Text style={styles.dateTimeValue}>{lesson.horario}</Text>
+						<Text style={styles.dateTimeValue}>
+							{`${new Date(lesson.data).getUTCDate()}/${new Date(lesson.data).getUTCMonth() + 1}/${new Date(lesson.data).getUTCFullYear()}`}
+						</Text>
+						<Text style={styles.dateTimeValue}>
+							{`${new Date(lesson.horario).getUTCHours()}:${new Date(lesson.horario).getUTCMinutes()}`}
+						</Text>
 					</View>
 
 					<Text style={styles.classProperty}>LOCAL:</Text>

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Feather } from '@expo/vector-icons'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import { Alert, View, Image, TouchableOpacity, Text, KeyboardAvoidingView, Linking, ScrollView, StatusBar, TextInput } from 'react-native';
+import { Alert, View, Image, TouchableOpacity, Text, KeyboardAvoidingView, FlatList, ScrollView, StatusBar, TextInput } from 'react-native';
 import { Divider } from 'react-native-elements'
 import { DataTable } from 'react-native-paper';
 import { Dropdown } from 'react-native-material-dropdown';
@@ -26,6 +26,8 @@ export default function TeacherEditDetail() {
   const [place, setPlace] = useState(lesson.unidade);
   const [room, setRoom] = useState(lesson.sala);
   const [detail, setDetail] = useState(lesson.detalhe);
+  const [loading, setLoading] = useState(false);
+  const [students, setStudents] = useState([]);
 
   const assignDate = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -170,6 +172,25 @@ export default function TeacherEditDetail() {
     }
   }
 
+  async function loadStudents() {
+    if (loading) {
+      return;
+    }
+
+    setLoading(true);
+
+    const response = await api.get(`api/studentsClass/${lesson.idAula}`);
+    setStudents([...response.data.docs]);
+    // setLesson([...lesson, ...response.data]);
+    console.log(response.data.docs);
+
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    loadStudents();
+  }, []);
+
   return (
     <>
       <KeyboardAvoidingView
@@ -258,32 +279,38 @@ export default function TeacherEditDetail() {
 
             <View style={styles.attendanceBox}>
               <Text style={styles.attendanceText}>LISTA DE PRESENÇA</Text>
-
               <DataTable>
                 <DataTable.Header>
                   <DataTable.Title>Nome</DataTable.Title>
                   <DataTable.Title numeric>Matrícula</DataTable.Title>
                 </DataTable.Header>
 
-                <DataTable.Row>
-                  <DataTable.Cell>Leonardo Mayer Kleesattel</DataTable.Cell>
-                  <DataTable.Cell numeric>121813536 <Feather name="check" size={16} color="green" /></DataTable.Cell>
-                </DataTable.Row>
-
-                <DataTable.Row>
-                  <DataTable.Cell>Enrico Stachon</DataTable.Cell>
-                  <DataTable.Cell numeric>121813950 <Feather name="check" size={16} color="green" /></DataTable.Cell>
-                </DataTable.Row>
-
-                <DataTable.Row>
-                  <DataTable.Cell>Julio Cesar</DataTable.Cell>
-                  <DataTable.Cell numeric>121813436 <Feather name="check" size={16} color="green" /></DataTable.Cell>
-                </DataTable.Row>
-
-                <DataTable.Row>
-                  <DataTable.Cell>Vitor Hugo Schramm</DataTable.Cell>
-                  <DataTable.Cell numeric>121815678 <Feather name="x" size={16} color="red" /></DataTable.Cell>
-                </DataTable.Row>
+                <FlatList
+                  data={students}
+                  keyExtractor={students => String(students.idPessoa)}
+                  showsVerticalScrollIndicator={false}
+                  onEndReached={loadStudents}
+                  onEndReachedThreshold={0.2} //indica quantos por cento está do fim da pagina (de 0 a 1)
+                  renderItem={({ item: students }) => (
+                    <>
+                      <DataTable.Row>
+                        <DataTable.Cell>{students.nomePessoa}</DataTable.Cell>
+                        <DataTable.Cell numeric>
+                          {students.idPessoa}&nbsp;&nbsp;
+                          {students.presenca == 1 &&
+                            <Feather name="minus" size={16} color="#f7b500" />
+                          }
+                          {students.presenca == 2 &&
+                            <Feather name="check" size={16} color="green" />
+                          }
+                          {students.presenca == 3 &&
+                            <Feather name="x" size={16} color="red" />
+                          }
+                        </DataTable.Cell>
+                      </DataTable.Row>
+                    </>
+                  )}
+                />
               </DataTable>
             </View>
           </View>

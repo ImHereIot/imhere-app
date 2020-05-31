@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add react-native-paper
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add react-native-maps@0.26.1
 
 PATH: 
   C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Python27\;C:\Python27\Scripts;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\Sennheiser\SoftphoneSDK\;C:\Program Files (x86)\Plantronics\Spokes3G\;C:\users\leonardo.kleesattel\.m2\repository;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\Treinamento - TOTVS\maven\bin;C:\Program Files\Dart\dart-sdk\bin;C:\src\flutter\bin;"C:\src\flutter\bin;%PATH%";"C:\Users\leonardo.kleesattel\AppData\Local\Android\Sdk\tools;C:\Users\leonardo.kleesattel\AppData\Local\Android\Sdk\platform-tools;%PATH%";C:\Windows\System32;C:\flutter\bin;C:\Users\leonardo.kleesattel\AppData\Roaming\npm;C:\Program Files\nodejs;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Git\cmd;C:\Users\leonardo.kleesattel\AppData\Local\Microsoft\WindowsApps;C:\Users\leonardo.kleesattel\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\leonardo.kleesattel\AppData\Roaming\npm;C:\src\flutter\bin;"C:\src\flutter\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Python27\;C:\Python27\Scripts;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\Sennheiser\SoftphoneSDK\;C:\Program Files (x86)\Plantronics\Spokes3G\;C:\users\leonardo.kleesattel\.m2\repository;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\Treinamento - TOTVS\maven\bin;C:\Program Files\Dart\dart-sdk\bin;C:\src\flutter\bin;"C:\src\flutter\bin;%PATH%";"C:\Users\leonardo.kleesattel\AppData\Local\Android\Sdk\tools;C:\Users\leonardo.kleesattel\AppData\Local\Android\Sdk\platform-tools;%PATH%";C:\Windows\System32;C:\flutter\bin;C:\Users\leonardo.kleesattel\AppData\Roaming\npm;C:\Program Files\nodejs;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Git\cmd;";"C:\Users\leonardo.kleesattel\AppData\Local\Android\Sdk\tools;C:\Users\leonardo.kleesattel\AppData\Local\Android\Sdk\platform-tools;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Python27\;C:\Python27\Scripts;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\Sennheiser\SoftphoneSDK\;C:\Program Files (x86)\Plantronics\Spokes3G\;C:\users\leonardo.kleesattel\.m2\repository;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\Treinamento - TOTVS\maven\bin;C:\Program Files\Dart\dart-sdk\bin;C:\src\flutter\bin;"C:\src\flutter\bin;%PATH%";"C:\Users\leonardo.kleesattel\AppData\Local\Android\Sdk\tools;C:\Users\leonardo.kleesattel\AppData\Local\Android\Sdk\platform-tools;%PATH%";C:\Windows\System32;C:\flutter\bin;C:\Users\leonardo.kleesattel\AppData\Roaming\npm;C:\Program Files\nodejs;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Git\cmd;";C:\Windows;C:\Windows\system32;C:\Program Files\Git\bin\git.exe;C:\Windows\System32;C:\flutter\bin;C:\Users\leonardo.kleesattel\AppData\Roaming\npm;C:\Program Files\nodejs;C:\Users\leonardo.kleesattel\AppData\Local\Yarn\bin;
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: EPERM: operation not permitted, unlink 'C:\dev\projects\imhere\imhere-app\mobile\node_modules\shortid\lib'
+  Error: EPERM: operation not permitted, unlink 'C:\dev\projects\imhere\imhere-app\mobile\node_modules\@babel\compat-data\node_modules\.bin'
 
 npm manifest: 
   {
@@ -27,6 +27,7 @@ npm manifest:
       "eject": "expo eject"
     },
     "dependencies": {
+      "@react-native-community/datetimepicker": "^2.4.0",
       "@react-native-community/masked-view": "0.1.5",
       "@react-navigation/native": "^5.1.3",
       "@react-navigation/stack": "^5.2.8",
@@ -34,6 +35,7 @@ npm manifest:
       "@unform/mobile": "^2.1.0",
       "axios": "^0.19.2",
       "expo": "~36.0.0",
+      "expo-camera": "~8.0.0",
       "expo-constants": "~8.0.0",
       "expo-mail-composer": "~8.0.0",
       "formik": "^2.1.4",
@@ -41,9 +43,13 @@ npm manifest:
       "react": "~16.9.0",
       "react-dom": "~16.9.0",
       "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
+      "react-native-date-picker": "^2.7.9",
       "react-native-datepicker": "^1.7.2",
       "react-native-elements": "^1.2.7",
       "react-native-gesture-handler": "~1.5.0",
+      "react-native-material-dropdown": "^0.11.1",
+      "react-native-modal-datetime-picker": "^8.5.4",
+      "react-native-paper": "^3.8.0",
       "react-native-reanimated": "~1.4.0",
       "react-native-safe-area-context": "0.6.0",
       "react-native-screens": "2.0.0-alpha.12",
@@ -978,6 +984,14 @@ Lockfile:
       lodash "^4.17.13"
       to-fast-properties "^2.0.0"
   
+  "@callstack/react-theme-provider@^3.0.5":
+    version "3.0.5"
+    resolved "https://registry.yarnpkg.com/@callstack/react-theme-provider/-/react-theme-provider-3.0.5.tgz#a173e455e9603c9c45357a3b6ace1273086527ca"
+    integrity sha512-Iec+ybWN0FvNj87sD3oWo/49edGUP0UOSdMnzCJEFJIDYr992ECIuOV89burAAh2/ibPCxgLiK6dmgv2mO/8Tg==
+    dependencies:
+      deepmerge "^3.2.0"
+      hoist-non-react-statics "^3.3.0"
+  
   "@cnakazawa/watch@^1.0.3":
     version "1.0.4"
     resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.4.tgz#f864ae85004d0fcab6f50be9141c4da368d1656a"
@@ -1188,6 +1202,13 @@ Lockfile:
       sudo-prompt "^9.0.0"
       wcwidth "^1.0.1"
       ws "^1.1.0"
+  
+  "@react-native-community/datetimepicker@^2.4.0":
+    version "2.4.0"
+    resolved "https://registry.yarnpkg.com/@react-native-community/datetimepicker/-/datetimepicker-2.4.0.tgz#6b3cf050f507f9b70d31d5a572e1153bb5bd50c9"
+    integrity sha512-ZXPwNAQt4T66PTL20l2nSEbtsn6vtsvFqdYWBfx8aaNKBoCPDygR6SsYzWcIoexKH5wmX0zctSzIsryl+Gtngg==
+    dependencies:
+      invariant "^2.2.4"
   
   "@react-native-community/masked-view@0.1.5":
     version "0.1.5"
@@ -2447,6 +2468,14 @@ Lockfile:
       blueimp-md5 "^2.10.0"
       path-browserify "^1.0.0"
       url-parse "^1.4.4"
+  
+  expo-camera@~8.0.0:
+    version "8.0.0"
+    resolved "https://registry.yarnpkg.com/expo-camera/-/expo-camera-8.0.0.tgz#a0caee7baf1f2013203fe6a4635125ade12ec164"
+    integrity sha512-mtP4NV2R4e+JTXUZBiA0ok4xSzTfRLxirvqJ5T7kjyozuCWUJeOhGk3hqNsBbWhwXDA+hirAge7169UB3vKfDQ==
+    dependencies:
+      lodash "^4.6.0"
+      prop-types "^15.6.0"
   
   expo-constants@~8.0.0:
     version "8.0.0"
@@ -3921,6 +3950,11 @@ Lockfile:
     dependencies:
       minimist "^1.2.5"
   
+  moment@^2.22.0, moment@^2.22.1:
+    version "2.24.0"
+    resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+    integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
+  
   morgan@^1.9.0:
     version "1.10.0"
     resolved "https://registry.yarnpkg.com/morgan/-/morgan-1.10.0.tgz#091778abc1fc47cd3509824653dae1faab6b17d7"
@@ -4431,7 +4465,7 @@ Lockfile:
     dependencies:
       asap "~2.0.3"
   
-  prop-types@^15.5.10, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
+  prop-types@^15.5.10, prop-types@^15.5.9, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
     version "15.7.2"
     resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
     integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -4505,6 +4539,20 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
     integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
   
+  react-native-date-picker@^2.7.9:
+    version "2.7.9"
+    resolved "https://registry.yarnpkg.com/react-native-date-picker/-/react-native-date-picker-2.7.9.tgz#f662d8741a3f78148eccf492d70a1740b035024b"
+    integrity sha512-9D8N6oT8ZU5/zHDz2c+Asco24ESvd8Y7SnxipAyLB0GmtRFfRSJ+mOFwaZaYpeqAoSFJnRJVvICnDQCCLAl1cw==
+    dependencies:
+      moment "^2.22.1"
+  
+  react-native-datepicker@^1.7.2:
+    version "1.7.2"
+    resolved "https://registry.yarnpkg.com/react-native-datepicker/-/react-native-datepicker-1.7.2.tgz#58d0822591a0ac9b32aba082650222a0ee29669d"
+    integrity sha1-WNCCJZGgrJsyq6CCZQIioO4pZp0=
+    dependencies:
+      moment "^2.22.0"
+  
   react-native-elements@^1.2.7:
     version "1.2.7"
     resolved "https://registry.yarnpkg.com/react-native-elements/-/react-native-elements-1.2.7.tgz#1eca2db715c41722aeb67aea62bd2a4621adb134"
@@ -4535,6 +4583,61 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
     integrity sha512-/VbpIEp8tSNNHIvstuA3Swx610whci1Zpc9mqNkqn14DkMbw+ORviln2u0XyHG1kPvvwTNGZY6QpeFwxYaSdbQ==
   
+  react-native-material-buttons@^0.5.0:
+    version "0.5.0"
+    resolved "https://registry.yarnpkg.com/react-native-material-buttons/-/react-native-material-buttons-0.5.0.tgz#ab2b3e3fc3f500ca713f51e9d75978aff602152a"
+    integrity sha1-qys+P8P1AMpxP1Hp11l4r/YCFSo=
+    dependencies:
+      prop-types "^15.5.9"
+      react-native-material-ripple "^0.7.0"
+  
+  react-native-material-dropdown@^0.11.1:
+    version "0.11.1"
+    resolved "https://registry.yarnpkg.com/react-native-material-dropdown/-/react-native-material-dropdown-0.11.1.tgz#c0fe434a8e617941ef910ba44d2f07c8f37584fe"
+    integrity sha1-wP5DSo5heUHvkQukTS8HyPN1hP4=
+    dependencies:
+      prop-types "^15.5.9"
+      react-native-material-buttons "^0.5.0"
+      react-native-material-ripple "^0.8.0"
+      react-native-material-textfield "^0.12.0"
+  
+  react-native-material-ripple@^0.7.0:
+    version "0.7.5"
+    resolved "https://registry.yarnpkg.com/react-native-material-ripple/-/react-native-material-ripple-0.7.5.tgz#e2af5110680532f14aea3c3a438247be2ffef659"
+    integrity sha1-4q9REGgFMvFK6jw6Q4JHvi/+9lk=
+    dependencies:
+      prop-types "^15.5.10"
+  
+  react-native-material-ripple@^0.8.0:
+    version "0.8.0"
+    resolved "https://registry.yarnpkg.com/react-native-material-ripple/-/react-native-material-ripple-0.8.0.tgz#b8c24e6fdea2af2a21e8468b1f40b35483019e2f"
+    integrity sha1-uMJOb96iryoh6EaLH0CzVIMBni8=
+    dependencies:
+      prop-types "^15.5.10"
+  
+  react-native-material-textfield@^0.12.0:
+    version "0.12.0"
+    resolved "https://registry.yarnpkg.com/react-native-material-textfield/-/react-native-material-textfield-0.12.0.tgz#3fba19d76ab89f67052c81e082152fc243d82a3f"
+    integrity sha1-P7oZ12q4n2cFLIHgghUvwkPYKj8=
+    dependencies:
+      prop-types "^15.5.9"
+  
+  react-native-modal-datetime-picker@^8.5.4:
+    version "8.5.4"
+    resolved "https://registry.yarnpkg.com/react-native-modal-datetime-picker/-/react-native-modal-datetime-picker-8.5.4.tgz#e348367810b4b534c8a1f844ec1f0a57a1542232"
+    integrity sha512-QKs4nsiZ2Ncr9pOrnnFyy3laHzReH87StV54hos1jGhT8MwlC5yQ9QfGqVDy8yRKz3bROST0wg3hS2Wy1mSQuQ==
+    dependencies:
+      prop-types "^15.7.2"
+  
+  react-native-paper@^3.8.0:
+    version "3.8.0"
+    resolved "https://registry.yarnpkg.com/react-native-paper/-/react-native-paper-3.8.0.tgz#94d9b50b945ce91c90491cce34d1c27845503990"
+    integrity sha512-3oNHjhjhpi/UDbYwwgeWQKf1qRbqQ7aTO0EUHbcxPNEq5BLClpI3kBoS6JTKk4Ge86xeJikXHHXN953g1mVr3Q==
+    dependencies:
+      "@callstack/react-theme-provider" "^3.0.5"
+      color "^3.1.2"
+      react-native-safe-area-view "^0.14.6"
+  
   react-native-ratings@^6.3.0:
     version "6.5.0"
     resolved "https://registry.yarnpkg.com/react-native-ratings/-/react-native-ratings-6.5.0.tgz#a1606ccba3c5b54eec8e6cfa4765a45cf0e4ab8d"
@@ -4552,6 +4655,13 @@ Lockfile:
     version "0.6.0"
     resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-0.6.0.tgz#f53f5a5bcafb462a8798a26b145e68946389ad60"
     integrity sha512-blY0akr3ZLTuZFdUotmjV+7LVXpBnd5CGFlNhTiarNNGJoHu79K42IJpUpmtg75iC9aWbSW7QHstlP0xz11V0A==
+  
+  react-native-safe-area-view@^0.14.6:
+    version "0.14.9"
+    resolved "https://registry.yarnpkg.com/react-native-safe-area-view/-/react-native-safe-area-view-0.14.9.tgz#90ee8383037010d9a5055a97cf97e4c1da1f0c3d"
+    integrity sha512-WII/ulhpVyL/qbYb7vydq7dJAfZRBcEhg4/UWt6F6nAKpLa3gAceMOxBxI914ppwSP/TdUsandFy6lkJQE0z4A==
+    dependencies:
+      hoist-non-react-statics "^2.3.1"
   
   react-native-screens@2.0.0-alpha.12:
     version "2.0.0-alpha.12"

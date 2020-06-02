@@ -172,13 +172,7 @@ export default function TeacherEditDetail() {
     }
   }
 
-  async function confirmChangeStatus(lessonId, personId, personName, status) {
-    console.log({
-      idAula: lessonId,
-      idPessoa: personId,
-      presenca: status,
-      lla: personName
-    });
+  function confirmChangeStatus(lessonId, personId, personName, status) {
     let statusName = "";
 
     switch (status) {

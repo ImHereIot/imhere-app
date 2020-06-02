@@ -146,7 +146,7 @@ export default function TeacherEditDetail() {
 
   async function confirmDelete(id) {
 
-    Alert.alert('Deseja excuir essa aula?',
+    Alert.alert('Deseja excluir essa aula?',
       'Se confirmar, não conseguirá acessar mais essa aula!',
       [
         {
@@ -170,6 +170,63 @@ export default function TeacherEditDetail() {
     } catch (err) {
       alert('Erro ao excluir aula, tente novamente!')
     }
+  }
+
+  async function confirmChangeStatus(lessonId, personId, personName, status) {
+    console.log({
+      idAula: lessonId,
+      idPessoa: personId,
+      presenca: status,
+      lla: personName
+    });
+    let statusName = "";
+
+    switch (status) {
+      case 2:
+        statusName = "FALTA";
+        status = 3;
+        break;
+      case 3:
+        statusName = "PRESENÇA";
+        status = 2;
+        break;
+      default:
+        return;
+    }
+
+    Alert.alert(`Deseja registrar ${statusName} para ${personName} (${personId})?`,
+      '',
+      [
+        {
+          text: 'Cancelar',
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        {
+          text: 'Confirmar',
+          onPress: () => changeStatus(lessonId, personId, status),
+        },
+      ],
+      { cancelable: false }
+    );
+  }
+
+  async function changeStatus(classId, personId, status) {
+    // try {
+    //   api.put(`api/studentsClass`, {
+    //     idAula: classId,
+    //     idPessoa: personId,
+    //     presenca: status
+    //   });
+    // } catch (err) {
+    //   alert('Erro ao alterar presença de aluno, tente novamente!')
+    // }
+
+    console.log({
+      idAula: classId,
+      idPessoa: personId,
+      presenca: status
+    });
   }
 
   async function loadStudents() {
@@ -293,21 +350,24 @@ export default function TeacherEditDetail() {
                   onEndReachedThreshold={0.2} //indica quantos por cento está do fim da pagina (de 0 a 1)
                   renderItem={({ item: students }) => (
                     <>
-                      <DataTable.Row>
-                        <DataTable.Cell>{students.nomePessoa}</DataTable.Cell>
-                        <DataTable.Cell numeric>
-                          {students.idPessoa}&nbsp;&nbsp;
-                          {students.presenca == 1 &&
-                            <Feather name="minus" size={16} color="#f7b500" />
-                          }
-                          {students.presenca == 2 &&
-                            <Feather name="check" size={16} color="green" />
-                          }
-                          {students.presenca == 3 &&
-                            <Feather name="x" size={16} color="red" />
-                          }
-                        </DataTable.Cell>
-                      </DataTable.Row>
+                      <TouchableOpacity
+                        onPress={() => confirmChangeStatus(students.idAula, students.idPessoa, students.nomePessoa, students.presenca)}>
+                        <DataTable.Row>
+                          <DataTable.Cell>{students.nomePessoa}</DataTable.Cell>
+                          <DataTable.Cell numeric>
+                            {students.idPessoa}&nbsp;&nbsp;
+                            {students.presenca == 1 &&
+                              <Feather name="minus" size={16} color="#f7b500" />
+                            }
+                            {students.presenca == 2 &&
+                              <Feather name="check" size={16} color="green" />
+                            }
+                            {students.presenca == 3 &&
+                              <Feather name="x" size={16} color="red" />
+                            }
+                          </DataTable.Cell>
+                        </DataTable.Row>
+                      </TouchableOpacity>
                     </>
                   )}
                 />

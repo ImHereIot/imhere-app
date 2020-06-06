@@ -32,13 +32,11 @@ export default function TeacherEditDetail() {
   const assignDate = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setDate(currentDate);
-    console.log(currentDate);
   }
 
   const assignTime = (event, selectedDate) => {
     const currentTime = selectedDate || hour;
     setHour(currentTime);
-    console.log(currentTime);
   }
 
   let classroom = [{
@@ -122,15 +120,6 @@ export default function TeacherEditDetail() {
     } catch (err) {
       alert('Erro ao alterar aula, tente novamente!')
     }
-
-    console.log({
-      idAula: id,
-      data: date,
-      horario: hour,
-      unidade: place,
-      sala: room,
-      detalhe: detail,
-    })
     navigation.goBack();
   }
 
@@ -203,12 +192,6 @@ export default function TeacherEditDetail() {
     } catch (err) {
       alert('Erro ao alterar presença de aluno, tente novamente!')
     }
-
-    console.log({
-      idAula: classId,
-      idPessoa: personId,
-      presenca: status
-    });
   }
 
   async function loadStudents() {

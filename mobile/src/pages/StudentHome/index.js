@@ -66,7 +66,7 @@ export default function StudentHome() {
 			<Divider style={styles.divider} />
 
 			<FlatList
-				data={lesson}F
+				data={lesson}
 				keyExtractor={lesson => String(lesson.idAula)}
 				showsVerticalScrollIndicator={false}
 				onEndReached={loadLesson}

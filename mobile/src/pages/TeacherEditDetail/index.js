@@ -32,13 +32,11 @@ export default function TeacherEditDetail() {
   const assignDate = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setDate(currentDate);
-    console.log(currentDate);
   }
 
   const assignTime = (event, selectedDate) => {
     const currentTime = selectedDate || hour;
     setHour(currentTime);
-    console.log(currentTime);
   }
 
   let classroom = [{
@@ -49,16 +47,6 @@ export default function TeacherEditDetail() {
     value: 'B104',
   }, {
     value: 'B105',
-  }];
-
-  let group = [{
-    value: 'SIN3MA',
-  }, {
-    value: 'ECP3CU',
-  }, {
-    value: 'SIN4MA',
-  }, {
-    value: 'SIN2MA',
   }];
 
   let institution = [{
@@ -132,15 +120,6 @@ export default function TeacherEditDetail() {
     } catch (err) {
       alert('Erro ao alterar aula, tente novamente!')
     }
-
-    console.log({
-      idAula: id,
-      data: date,
-      horario: hour,
-      unidade: place,
-      sala: room,
-      detalhe: detail,
-    })
     navigation.goBack();
   }
 
@@ -206,21 +185,13 @@ export default function TeacherEditDetail() {
   }
 
   async function changeStatus(classId, personId, status) {
-    // try {
-    //   api.put(`api/studentsClass`, {
-    //     idAula: classId,
-    //     idPessoa: personId,
-    //     presenca: status
-    //   });
-    // } catch (err) {
-    //   alert('Erro ao alterar presença de aluno, tente novamente!')
-    // }
-
-    console.log({
-      idAula: classId,
-      idPessoa: personId,
-      presenca: status
-    });
+    try {
+      api.put(`api/studentsClass/${classId}|${personId}`, {
+        presenca: status
+      });
+    } catch (err) {
+      alert('Erro ao alterar presença de aluno, tente novamente!')
+    }
   }
 
   async function loadStudents() {
@@ -230,7 +201,7 @@ export default function TeacherEditDetail() {
 
     setLoading(true);
 
-    const response = await api.get(`api/studentsClass/${lesson.idAula}`);
+    const response = await api.get(`api/studentsClassGet/${lesson.idAula}`);
     setStudents([...response.data.docs]);
     // setLesson([...lesson, ...response.data]);
     console.log(response.data.docs);
@@ -270,13 +241,7 @@ export default function TeacherEditDetail() {
 
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.horizontalPadding}>
-
             <View style={styles.class}>
-              <View style={styles.classStatus}>
-                <Text style={styles.classStatusText}>CONFIRMADA</Text>
-                <Feather name="check" size={16} color="green" />
-              </View>
-
               <Text style={styles.classProperty}>DATA:</Text>
               <DateTimePicker
                 display='default'

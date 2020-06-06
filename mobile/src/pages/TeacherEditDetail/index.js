@@ -51,16 +51,6 @@ export default function TeacherEditDetail() {
     value: 'B105',
   }];
 
-  let group = [{
-    value: 'SIN3MA',
-  }, {
-    value: 'ECP3CU',
-  }, {
-    value: 'SIN4MA',
-  }, {
-    value: 'SIN2MA',
-  }];
-
   let institution = [{
     value: 'UniSociesc - Marquês de Olinda',
   }];
@@ -206,15 +196,13 @@ export default function TeacherEditDetail() {
   }
 
   async function changeStatus(classId, personId, status) {
-    // try {
-    //   api.put(`api/studentsClass`, {
-    //     idAula: classId,
-    //     idPessoa: personId,
-    //     presenca: status
-    //   });
-    // } catch (err) {
-    //   alert('Erro ao alterar presença de aluno, tente novamente!')
-    // }
+    try {
+      api.put(`api/studentsClass/${classId}|${personId}`, {
+        presenca: status
+      });
+    } catch (err) {
+      alert('Erro ao alterar presença de aluno, tente novamente!')
+    }
 
     console.log({
       idAula: classId,
@@ -230,7 +218,7 @@ export default function TeacherEditDetail() {
 
     setLoading(true);
 
-    const response = await api.get(`api/studentsClass/${lesson.idAula}`);
+    const response = await api.get(`api/studentsClassGet/${lesson.idAula}`);
     setStudents([...response.data.docs]);
     // setLesson([...lesson, ...response.data]);
     console.log(response.data.docs);
@@ -270,13 +258,7 @@ export default function TeacherEditDetail() {
 
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.horizontalPadding}>
-
             <View style={styles.class}>
-              <View style={styles.classStatus}>
-                <Text style={styles.classStatusText}>CONFIRMADA</Text>
-                <Feather name="check" size={16} color="green" />
-              </View>
-
               <Text style={styles.classProperty}>DATA:</Text>
               <DateTimePicker
                 display='default'

@@ -1,19 +1,21 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Feather } from '@expo/vector-icons'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import { View, Image, TouchableOpacity, Text, Linking, ScrollView, StatusBar } from 'react-native';
+import { View, Image, TouchableOpacity, Text, ScrollView, StatusBar } from 'react-native';
 import { Divider } from 'react-native-elements'
 import * as MailComposer from 'expo-mail-composer';
 
-import logoImg from '../../../assets/logo2.png'
-import styles from './styles'
+import logoImg from '../../../assets/logo2.png';
+import styles from './styles';
+import api from '../../services/api';
 
 export default function StudentDetail() {
 	const navigation = useNavigation();
 	const route = useRoute();
 	const lesson = route.params.lesson;
 	const person = route.params.person;
+	const [studentStatus, setStudentStatus] = useState([]);
 
 	const message = `Olá professor ${lesson.professor},\n\nEstou entrando em contato pois\n\nAtenciosamente, ${person.nomePessoa}`;
 
@@ -32,6 +34,16 @@ export default function StudentDetail() {
 			body: message,
 		});
 	}
+
+	async function getStudentStatus() {
+		const response = await api.get(`api/studentsClass/${lesson.idAula}|${person.registro}`);
+		setStudentStatus(...response.data.docs);
+		console.log(studentStatus);
+	}
+
+	useEffect(() => {
+		getStudentStatus();
+	}, []);
 
 	return (
 		<View style={styles.container}>
@@ -54,8 +66,38 @@ export default function StudentDetail() {
 			<ScrollView showsVerticalScrollIndicator={false}>
 				<View style={styles.class}>
 					<View style={styles.classStatus}>
-						<Text style={styles.classStatusText, { fontSize: 12, color: '#f7b500', fontWeight: 'bold', marginTop: 0 }}>PENDENTE</Text>
-						<Feather name="minus" size={16} color="#f7b500" />
+						{studentStatus.presenca == 1 &&
+							<>
+								<Text style={{
+									fontSize: 12,
+									color: '#f7b500',
+									fontWeight: 'bold'
+								}}>PENDENTE</Text>
+								<Feather name="minus" size={16} color="#f7b500" />
+							</>
+						}
+						{studentStatus.presenca == 2 &&
+							<>
+								<Text style={{
+									fontSize: 12,
+									color: 'green',
+									fontWeight: 'bold'
+								}}>
+									ENTROU | {`${new Date(studentStatus.data).getUTCDate()}/${new Date(studentStatus.data).getUTCMonth() + 1}/${new Date(studentStatus.data).getUTCFullYear()}  ${new Date(studentStatus.data).getUTCHours()}:${new Date(studentStatus.data).getUTCMinutes()}`}
+								</Text>
+								<Feather name="check" size={16} color="green" />
+							</>
+						}
+						{studentStatus.presenca == 3 &&
+							<>
+								<Text style={{
+									fontSize: 12,
+									color: 'red',
+									fontWeight: 'bold'
+								}}>FALTOU</Text>
+								<Feather name="x" size={16} color="red" />
+							</>
+						}
 					</View>
 
 					<Text style={styles.classProperty}>DATA E HORA:</Text>

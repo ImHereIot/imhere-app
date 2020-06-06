@@ -38,13 +38,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-
-  classStatusText: {
-    fontSize: 12,
-    color: 'green',
-    fontWeight: 'bold'
-  },
-
+  
   class: {
 		padding:24,
 		borderRadius:8,

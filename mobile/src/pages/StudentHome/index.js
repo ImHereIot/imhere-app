@@ -59,10 +59,6 @@ export default function StudentHome() {
 						<Text style={styles.logoffText}>Logoff</Text>
 						<Feather name="power" size={18} color="red" />
 					</TouchableOpacity>
-
-					<Text style={styles.headerText}>
-						Você possui <Text style={styles.headerTextBold}> 2 aulas </Text>hoje.
-					</Text>
 				</View>
 			</View>
 			<Text style={styles.title}>Bem-vindo</Text>
@@ -70,7 +66,7 @@ export default function StudentHome() {
 			<Divider style={styles.divider} />
 
 			<FlatList
-				data={lesson}
+				data={lesson}F
 				keyExtractor={lesson => String(lesson.idAula)}
 				showsVerticalScrollIndicator={false}
 				onEndReached={loadLesson}
@@ -79,11 +75,6 @@ export default function StudentHome() {
 
 					<>
 						<View style={styles.class}>
-							<View style={styles.classStatus}>
-								<Text style={styles.classStatusText, { fontSize: 12, color: 'red', fontWeight: 'bold' }}>FALTOU</Text>
-								<Feather name="x" size={16} color="red" />
-							</View>
-
 							<Text style={styles.className}>{lesson.nomeAula}</Text>
 
 							<View style={styles.dateTimeView}>

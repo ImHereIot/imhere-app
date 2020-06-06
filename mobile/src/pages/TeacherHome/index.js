@@ -86,11 +86,6 @@ export default function TeacherHome() {
         renderItem={({ item: lesson }) => (
           <>
             <View style={styles.class}>
-              <View style={styles.classStatus}>
-                <Text style={styles.classStatusText}>ENTROU 18:47</Text>
-                <Feather name="check" size={16} color="green" />
-              </View>
-
               <Text style={styles.className}>{lesson.nomeAula}</Text>
 
               <View style={styles.dateTimeView}>

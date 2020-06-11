@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { View, FlatList, Image, Text, TouchableOpacity, StatusBar } from 'react-native';
 import { Divider } from 'react-native-elements'
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute, useIsFocused, useFocusEffect } from '@react-navigation/native';
 
 import api from '../../services/api'
 
@@ -12,6 +12,7 @@ import styles from './styles'
 export default function TeacherHome() {
   const navigation = useNavigation();
   const route = useRoute();
+  const isFocused = useIsFocused();
   // const catchedPhoto = [];
   let person = route.params.person;
 
@@ -44,7 +45,6 @@ export default function TeacherHome() {
 
     const response = await api.get(`api/class/${person.registro}`);
     setLesson([...response.data.retornoAula]);
-    // setLesson([...lesson, ...response.data]);
     console.log(lesson);
 
     setLoading(false);
@@ -53,6 +53,14 @@ export default function TeacherHome() {
   useEffect(() => {
     loadLesson();
   }, []);
+
+  useEffect(() => {
+    const getLesson = navigation.addListener('focus', () => {
+      loadLesson();
+    });
+
+    return getLesson;
+  }, [])
 
   return (
     <View style={styles.container}>

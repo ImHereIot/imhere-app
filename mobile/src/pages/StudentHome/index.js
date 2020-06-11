@@ -32,7 +32,6 @@ export default function StudentHome() {
 
 		const response = await api.get(`api/class/${person.registro}`);
 		setLesson([...response.data.retornoAula]);
-		//setLesson([...lesson, ...response.data]);
 
 		setLoading(false);
 	}
@@ -43,8 +42,12 @@ export default function StudentHome() {
 	}
 
 	useEffect(() => {
-		loadLesson();
-	}, []);
+		const getLesson = navigation.addListener('focus', () => {
+			loadLesson();
+		});
+
+		return getLesson;
+	}, [])
 
 	return (
 		<View style={styles.container}>

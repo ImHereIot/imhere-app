@@ -26,7 +26,6 @@ export default function TeacherEditDetail() {
   const [place, setPlace] = useState(lesson.unidade);
   const [room, setRoom] = useState(lesson.sala);
   const [detail, setDetail] = useState(lesson.detalhe);
-  const [loading, setLoading] = useState(false);
   const [students, setStudents] = useState([]);
 
   const assignDate = (event, selectedDate) => {
@@ -153,7 +152,7 @@ export default function TeacherEditDetail() {
 
   function confirmChangeStatus(lessonId, personId, personName, status) {
     let statusName = "";
-
+    console.log(status);
     switch (status) {
       case 2:
         statusName = "FALTA";
@@ -189,29 +188,26 @@ export default function TeacherEditDetail() {
       api.put(`api/studentsClass/${classId}|${personId}`, {
         presenca: status
       });
+      loadStudents();
     } catch (err) {
       alert('Erro ao alterar presença de aluno, tente novamente!')
     }
   }
 
   async function loadStudents() {
-    if (loading) {
-      return;
-    }
-
-    setLoading(true);
-
     const response = await api.get(`api/studentsClassGet/${lesson.idAula}`);
     setStudents([...response.data.docs]);
     // setLesson([...lesson, ...response.data]);
     console.log(response.data.docs);
-
-    setLoading(false);
   }
 
   useEffect(() => {
-    loadStudents();
-  }, []);
+    const getStudents = navigation.addListener('focus', () => {
+      loadStudents();
+    });
+
+    return getStudents;
+  }, [])
 
   return (
     <>
